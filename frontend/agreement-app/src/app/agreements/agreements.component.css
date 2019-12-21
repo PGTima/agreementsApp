@@ -1,0 +1,15 @@
+.example-button-row{
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+table.mat-table {
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: separate; 
+  border-spacing: 10px 20px;
+}
+th, td {
+  padding: 100px 150px;
+}

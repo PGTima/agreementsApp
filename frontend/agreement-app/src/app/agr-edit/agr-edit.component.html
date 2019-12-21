@@ -1,0 +1,102 @@
+<div class="firstForma">
+  <h1>Расчет</h1>
+  <div class="first-container">
+    <div class ="firstColumn">
+      <p>
+         <mat-form-field class = "strachSumm">
+           <input matInput placeholder="Страховая сумма">
+         </mat-form-field>
+      </p>
+      <p>
+         <mat-form-field class="immovables">
+           <mat-label>Тип недвижимости</mat-label>
+             <mat-select>
+               <mat-option *ngFor="let food of foods" [value]="food.value">
+                 {{food.viewValue}}
+               </mat-option>
+             </mat-select>
+          </mat-form-field>
+      </p>
+      <p>
+          <mat-form-field class="yearPostroiki">
+            <input matInput placeholder="Год постройки">
+          </mat-form-field>
+      </p>
+       <p>
+          <mat-form-field class = "square">
+            <input matInput placeholder="Площадь, кв. м">
+          </mat-form-field>
+      </p>
+    </div>
+    <div class = "secondColumn">
+       Срок действия с   
+      <mat-form-field>
+        <input matInput [matDatepicker]="dateFrom" placeholder="Дата начала договора">
+        <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+        <mat-datepicker #dateFrom></mat-datepicker>
+      </mat-form-field>
+      по
+      <mat-form-field>
+        <input matInput [matDatepicker]="dateTo" placeholder="Дата окончания договора">
+        <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+        <mat-datepicker #dateTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button class="rashetButton" color="primary"> Рассчитать </button>
+  <div class="firstRow">
+    <mat-form-field class =" dateRashet">
+      <input matInput placeholder="Дата расчета" >
+    </mat-form-field>
+
+    <mat-form-field class=" prize">
+      <input matInput placeholder="Премия" >
+    </mat-form-field>
+  </div>
+
+  <div class="secondRow">
+    <mat-form-field class = "numberAgreement">
+      <input matInput placeholder="№ договора" >
+    </mat-form-field>
+    <mat-form-field>
+     <input matInput [matDatepicker]="dateRes" placeholder="Дата заключения договора">
+      <mat-datepicker-toggle matSuffix [for]="dateRes"></mat-datepicker-toggle>
+      <mat-datepicker #dateRes></mat-datepicker>
+    </mat-form-field>
+  </div>
+<h1>СТРАХОВАТЕЛЬ</h1>
+<div class="threeRow">
+    <button mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
+    <mat-form-field>
+      <input matInput placeholder="Введите ФИО" class="fio">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="openDialog()" class="changeClient"> Изменить </button>
+</div>
+<div class="fourRow">
+  <mat-form-field>
+     <input matInput [matDatepicker]="dateBorn" placeholder="Дата рождения">
+      <mat-datepicker-toggle matSuffix [for]="dateBorn"></mat-datepicker-toggle>
+      <mat-datepicker #dateBorn></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Серия" >
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Номер" >
+  </mat-form-field>
+  </div>
+<h1>Адрес недвижимости</h1>
+<div class ="fiveRow">
+  <app-adress></app-adress>
+</div>
+<h1>КОММЕНТАРИЙ</h1>
+<div class ="sixRow">
+<mat-form-field class="example-full-width">
+    <textarea matInput class="textComment" placeholder="Комментарий к договору"></textarea>
+</mat-form-field>
+</div>
+<div class ="sevenRow">
+  <button mat-raised-button class="saveAgr" color="primary"> Сохранить </button>
+  <button mat-raised-button class="listAgr" color="primary">К списку договоров </button>
+</div>
+</div>

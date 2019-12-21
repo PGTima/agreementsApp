@@ -1,0 +1,41 @@
+<div class="adressKonteiner">
+<div class= "adressRow">
+  <mat-form-field>
+  <mat-label>Государство</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Индекс" >
+  </mat-form-field> 
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="республика, край, область" >
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="улица" >
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="район">
+  </mat-form-field>
+</div>
+<div class= "adressRowTwo">
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Населенный пункт" >
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="дом">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="корпус">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="строение">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="квартира" >
+</mat-form-field>
+</div>
+</div>

@@ -1,0 +1,79 @@
+.first-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 80%;
+  border: 2 px solid black;
+}
+.firstColumn{
+   padding: 2px;
+}
+.secondColumn{
+  padding: 2px;
+}
+.firstForma div{
+  border: 8 px solid black;
+
+}
+.firstRow{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 55%;
+}
+.rashetButton{
+  left:50%;
+}
+.secondRow{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 56%;
+}
+.threeRow{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 80%;
+
+}
+.fourRow{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 80%;
+}
+.selectClient{
+  height:36px;
+}
+.changeClient{
+  height:36px;
+}
+.fiveRow{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  margin-left :100px;
+}
+.textComment{
+  margin: 5;
+  width: 500px;
+  height: 100px;
+}
+.sixRow{
+   margin-left: 100px;
+   
+}
+.sevenRow{
+   align-items: center;
+   margin-left: 50%;
+}
+.saveAgr{
+  margin-right: 5px;
+}

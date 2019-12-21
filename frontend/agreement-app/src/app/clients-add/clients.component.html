@@ -1,0 +1,33 @@
+<div class ="createClient">
+<div class= "firstRow">
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Фамилия">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Имя">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Отчество">
+  </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="dateBorn" placeholder="Дата рождения">
+      <mat-datepicker-toggle matSuffix [for]="dateBorn"></mat-datepicker-toggle>
+      <mat-datepicker #dateBorn></mat-datepicker>
+    </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+   <input matInput placeholder="Серия">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+     <input matInput placeholder="Номер">
+  </mat-form-field>
+</div>
+<div class = "secondRow">
+   <button mat-raised-button  color="primary" (click)="addClient()">Сохранить </button>
+   <button mat-raised-button  color="primary" (click)="close()">Закрыть </button>
+</div>
+</div>

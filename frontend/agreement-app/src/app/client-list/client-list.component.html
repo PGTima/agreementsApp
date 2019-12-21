@@ -1,0 +1,33 @@
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Фамилия">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Имя">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Отчество">
+  </mat-form-field>
+  <button mat-icon-button aria-label="Поиск" (click)="findUser()">
+    <mat-icon>search</mat-icon>
+  </button>
+
+<mat-selection-list >
+  <mat-list-option >
+   имя
+  </mat-list-option>
+    <mat-list-option >
+  уйуйу
+  </mat-list-option>
+    <mat-list-option >
+   ууййй
+  </mat-list-option>
+</mat-selection-list>
+<div>
+   <button mat-raised-button (click)="changeUser()">Выбрать </button>
+   <button mat-raised-button (click)="addUser()">Новый </button>
+   <button mat-raised-button (click)="close()">Закрыть </button>
+</div>
