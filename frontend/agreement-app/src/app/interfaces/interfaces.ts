@@ -3,9 +3,9 @@ export interface Client {
   name: String;
   surname: String;
   patronymic: String;
-  date_born: String;
-  passport_series: String;
-  passport_number: String;
+  dateBorn: String;
+  clientPassportSeries: String;
+  clientPassportNumber: String;
 }
 export interface Adress {
   adress_id: number;

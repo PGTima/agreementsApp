@@ -67,22 +67,22 @@
 <h1>СТРАХОВАТЕЛЬ</h1>
 <div class="threeRow">
     <button mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
-    <mat-form-field>
-      <input matInput placeholder="Введите ФИО" class="fio">
+    <mat-form-field class="fio" >
+      <input matInput placeholder="Введите ФИО" [value]="fio">
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="openDialog()" class="changeClient"> Изменить </button>
 </div>
 <div class="fourRow">
   <mat-form-field>
-     <input matInput [matDatepicker]="dateBorn" placeholder="Дата рождения">
+     <input matInput [matDatepicker]="dateBorn" placeholder="Дата рождения" [value]="dateBornx" >
       <mat-datepicker-toggle matSuffix [for]="dateBorn"></mat-datepicker-toggle>
       <mat-datepicker #dateBorn></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Серия" >
+    <input matInput placeholder="Серия" [value]="series" >
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Номер" >
+    <input matInput placeholder="Номер" [value]="nomer">
   </mat-form-field>
   </div>
 <h1>Адрес недвижимости</h1>

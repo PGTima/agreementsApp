@@ -13,7 +13,7 @@ import { AgrEditComponent } from './agr-edit/agr-edit.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { ClientEditComponent } from './client-edit/client-edit.component';
 import { ClientListComponent } from './client-list/client-list.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -58,7 +58,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppRoutingModule,
     MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ClientsComponent, ClientEditComponent, ClientListComponent, AgrEditComponent]
 })

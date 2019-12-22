@@ -1,28 +1,115 @@
 
 <div class="editClient">
 <div class ="firstRow">
+<form class="example-form"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <input matInput placeholder="Фамилия">
+    <input 
+    matInput placeholder="Фамилия"
+    [value]="data.surname"
+    formControlName="surname"
+    id="surname"
+    type="text"
+    [ngClass]="{'invalid': form.get('surname').invalid && form.get('surname').touched}"
+    >
+    <mat-error *ngIf="form.get('surname').invalid && form.get('surname').touched">
+      <mat-error *ngIf="form.get('surname').errors['required']">
+       Поле Фамилия не заполнено!!!
+      </mat-error>
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Имя">
+    <input matInput placeholder="Имя" 
+    [value]="data.name"
+    formControlName="name"
+    id="name"
+    type="text"
+    [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+    <mat-error *ngIf="form.get('name').invalid && form.get('name').touched">
+      <mat-error *ngIf="form.get('name').errors['required']">
+       Поле Имя не заполнено!!!
+      </mat-error>
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Отчество">
+    <input matInput 
+    placeholder="Отчество" 
+    [value]="data.patronymic"
+    formControlName="patronymic"
+    id="patronymic"
+    type="text"
+    [ngClass]="{'invalid': form.get('patronymic').invalid && form.get('patronymic').touched}">
+    <mat-error *ngIf="form.get('patronymic').invalid && form.get('patronymic').touched">
+      <mat-error *ngIf="form.get('patronymic').errors['required']">
+       Поле Отчество не заполнено!!!
+      </mat-error>
+    </mat-error>
   </mat-form-field>
-    
   <mat-form-field>
-  <input matInput placeholder="серия">
+    <input matInput 
+    [matDatepicker]="dateBornx" 
+    placeholder="Дата рождения" 
+    [value]="data.dateBorn"
+    placeholder="Дата рождения"
+      formControlName="dateBorn"
+      id="dateBorn"
+      type="text"
+      [ngClass]="{'invalid': form.get('dateBorn').invalid && form.get('dateBorn').touched}"
+      >
+      <mat-error *ngIf="form.get('dateBorn').invalid && form.get('dateBorn').touched">
+        <mat-error *ngIf="form.get('dateBorn').errors['required']">
+         Поле Дата рождения не заполнено!!!
+        </mat-error>
+      </mat-error>  
+    <mat-datepicker-toggle matSuffix [for]="dateBornx"></mat-datepicker-toggle>
+    <mat-datepicker #dateBornx></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field>
+  <input matInput 
+  placeholder="серия" 
+  [value]="data.clientPassportSeries" 
+  formControlName="clientPassportSeries"
+  id="clientPassportSeries"
+  type="text"
+  [ngClass]="{'invalid': form.get('clientPassportSeries').invalid && form.get('clientPassportSeries').touched}">
+    <mat-error *ngIf="form.get('clientPassportSeries').invalid && form.get('clientPassportSeries').touched">
+      <mat-error *ngIf="form.get('clientPassportSeries').errors['required']">
+       Поле серия паспорта не заполнено!!!
+      </mat-error>
+            <mat-error *ngIf="form.get('clientPassportSeries').errors['maxlength'] && form.get('clientPassportSeries').errors['maxlength']['requiredLength']
+      ||form.get('clientPassportSeries').errors['minlength'] && form.get('clientPassportSeries').errors['minlength']['requiredLength'] ">
+          Серия паспорта состоит из 4 символов
+      </mat-error>
+    </mat-error>   
   </mat-form-field>
 
   <mat-form-field>
-     <input matInput placeholder="номер">
+     <input matInput 
+     placeholder="номер" 
+     [value]="data.clientPassportNumber" 
+     formControlName="clientPassportNumber"
+     id="clientPassportNumber"
+     type="text"
+     [ngClass]="{'invalid': form.get('clientPassportNumber').invalid && form.get('clientPassportNumber').touched}">
+     <mat-error *ngIf="form.get('clientPassportNumber').invalid && form.get('clientPassportNumber').touched">
+       <mat-error *ngIf="form.get('clientPassportNumber').errors['required']">
+        Поле номер паспорта не заполнено!!!
+     </mat-error>
+      <mat-error *ngIf="form.get('clientPassportNumber').errors['maxlength'] && form.get('clientPassportNumber').errors['maxlength']['requiredLength']
+      ||form.get('clientPassportNumber').errors['minlength'] && form.get('clientPassportNumber').errors['minlength']['requiredLength'] ">
+          Номер паспорта состоит из 6 символов
+      </mat-error>
+    </mat-error>   
   </mat-form-field>
+  </form>
   </div>
   <div class="secondRow">
-  <button mat-raised-button  color="primary" class="saveButton" color="primary"> Сохранить </button>
-  <button mat-raised-button  color="primary" class="closeButton" color="primary"> Выйти </button>
+  <button mat-raised-button  color="primary" class="saveButton" color="primary" (click)="onSubmit()"> Сохранить </button>
+  <button mat-raised-button  color="primary" class="closeButton" (click)="close()" color="primary"> Выйти </button>
   </div>
   </div>

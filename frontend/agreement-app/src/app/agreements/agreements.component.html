@@ -35,7 +35,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Страхователь </th>
       <td mat-cell *matCellDef="let agreement">
-        {{agreement.clientA.surname +' '+agreement.clientA.name+' '+ agreement.clientA.patronymic}}
+        {{agreement.clientA.name +' '+agreement.clientA.surname+' '+ agreement.clientA.patronymic}}
       </td>
     </ng-container>
 

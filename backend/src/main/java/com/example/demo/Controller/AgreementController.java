@@ -13,6 +13,7 @@ public class AgreementController {
     @Autowired
     public AgreementsService agreementsService;
     //добавить договор
+    @CrossOrigin
     @RequestMapping(value = "/addAgreement",method = RequestMethod.POST)
     public Object addAgreement(@RequestBody Agreement agreement){
         // проверим на отсутствие параметров
@@ -56,6 +57,7 @@ public class AgreementController {
         }
     }
     //поиск по клиенту договора
+    @CrossOrigin
     @RequestMapping(value = "/findAgreement",method = RequestMethod.GET)
     public Object findAgreement(@RequestParam Integer client_id){
          if (client_id == null){

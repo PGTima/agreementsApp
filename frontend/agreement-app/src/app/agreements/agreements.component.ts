@@ -17,6 +17,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   agreement: Agreements[];
   aSub: Subscription;
   flagDisabled = true;
+
   displayedColumns: string[] = ['agreementNumber', 'seriesNomer', 'dateFinish', 'name', 'prize', 'srokDate'];
   constructor(private agreementsService: AgreementsService,
     private _snackBar: MatSnackBar,
