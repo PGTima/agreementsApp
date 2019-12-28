@@ -10,7 +10,7 @@ public class Adress {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "adress_id")
     private Long id;
-//связь с государством
+     //связь с государством
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="state_id")
@@ -32,52 +32,11 @@ public class Adress {
     @Column(name = "buld")
     private String buld;
 
-public Adress(){};
-    public String getIndexA() {
-        return indexA;
-    }
-
-    public void setIndexA(String indexA) {
-        this.indexA = indexA;
-    }
-
-    public String getEdge() {
-        return edge;
-    }
-
-    public void setEdge(String edge) {
-        this.edge = edge;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getPunkt() {
-        return punkt;
-    }
-
-    public void setPunkt(String punkt) {
-        this.punkt = punkt;
-    }
-
-    public String getKorpus() {
-        return korpus;
-    }
-
-    public void setKorpus(String korpus) {
-        this.korpus = korpus;
-    }
-
-    public String getBuld() {
-        return buld;
-    }
-
     public Adress(Long id, State stateA, Dwelling dwellingA, String indexA, String edge, String district, String punkt, String korpus, String buld) {
+        if (id==null || stateA == null ||dwellingA == null || indexA==null||edge==null||district==null
+                ||punkt==null||korpus==null||buld==null){
+            throw new IllegalArgumentException("Переданные параметры не могут быть пустыми!");
+        }
         this.id = id;
         this.stateA = stateA;
         this.dwellingA = dwellingA;
@@ -89,7 +48,121 @@ public Adress(){};
         this.buld = buld;
     }
 
+    public Adress() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        if (id==null){
+            throw new IllegalArgumentException("Переданный id не может быть пустым!");
+        }
+
+        this.id = id;
+    }
+
+    public State getStateA() {
+        return stateA;
+    }
+
+    public void setStateA(State stateA) {
+        if (stateA==null){
+            throw new IllegalArgumentException("Переданный stateA не может быть пустым!");
+        }
+        this.stateA = stateA;
+    }
+
+    public Dwelling getDwellingA() {
+        return dwellingA;
+    }
+
+    public void setDwellingA(Dwelling dwellingA) {
+        if (dwellingA==null){
+            throw new IllegalArgumentException("Переданный dwellingA не может быть пустым!");
+        }
+        this.dwellingA = dwellingA;
+    }
+
+    public String getIndexA() {
+        return indexA;
+    }
+
+    public void setIndexA(String indexA) {
+        if (indexA==null){
+            throw new IllegalArgumentException("Переданный dwellingA не может быть пустым!");
+        }
+        this.indexA = indexA;
+    }
+
+    public String getEdge() {
+        return edge;
+    }
+
+    public void setEdge(String edge) {
+        if (edge==null){
+            throw new IllegalArgumentException("Переданный edge не может быть пустым!");
+        }
+        this.edge = edge;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        if (district==null){
+            throw new IllegalArgumentException("Переданный district не может быть пустым!");
+        }
+        this.district = district;
+    }
+
+    public String getPunkt() {
+        return punkt;
+    }
+
+    public void setPunkt(String punkt) {
+        if (punkt==null){
+            throw new IllegalArgumentException("Переданный punkt не может быть пустым!");
+        }
+        this.punkt = punkt;
+    }
+
+    public String getKorpus() {
+        return korpus;
+    }
+
+    public void setKorpus(String korpus) {
+        if (korpus==null){
+            throw new IllegalArgumentException("Переданный korpus не может быть пустым!");
+        }
+        this.korpus = korpus;
+    }
+
+    public String getBuld() {
+        return buld;
+    }
+
     public void setBuld(String buld) {
+        if (buld==null){
+            throw new IllegalArgumentException("Переданный buld не может быть пустым!");
+        }
         this.buld = buld;
+    }
+
+    @Override
+    public String toString() {
+        return "Adress{" +
+                "id=" + id +
+                ", stateA=" + stateA +
+                ", dwellingA=" + dwellingA +
+                ", indexA='" + indexA + '\'' +
+                ", edge='" + edge + '\'' +
+                ", district='" + district + '\'' +
+                ", punkt='" + punkt + '\'' +
+                ", korpus='" + korpus + '\'' +
+                ", buld='" + buld + '\'' +
+                '}';
     }
 }

@@ -21,7 +21,30 @@ public class Dwelling {
     private Date dateDrawelling;
     @Column(name = "square_dwelling")
     private Float squareDrawelling;
-    public Dwelling(){ };
+
+    public Dwelling(Long id, Integer apartment, Integer home, Integer room, Date dateDrawelling, Float squareDrawelling) {
+        this.id = id;
+        this.apartment = apartment;
+        this.home = home;
+        this.room = room;
+        this.dateDrawelling = dateDrawelling;
+        this.squareDrawelling = squareDrawelling;
+    }
+
+    public Dwelling() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        if (id==null){
+            throw new IllegalArgumentException("Переданный id не может быть пустым!");
+        }
+        this.id = id;
+    }
+
     public Integer getApartment() {
         return apartment;
     }
@@ -62,12 +85,15 @@ public class Dwelling {
         this.squareDrawelling = squareDrawelling;
     }
 
-    public Dwelling(Long id, Integer apartment, Integer home, Integer room, Date dateDrawelling, Float squareDrawelling) {
-        this.id = id;
-        this.apartment = apartment;
-        this.home = home;
-        this.room = room;
-        this.dateDrawelling = dateDrawelling;
-        this.squareDrawelling = squareDrawelling;
+    @Override
+    public String toString() {
+        return "Dwelling{" +
+                "id=" + id +
+                ", apartment=" + apartment +
+                ", home=" + home +
+                ", room=" + room +
+                ", dateDrawelling=" + dateDrawelling +
+                ", squareDrawelling=" + squareDrawelling +
+                '}';
     }
 }

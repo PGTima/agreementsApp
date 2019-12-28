@@ -17,8 +17,9 @@ public class AgreementController {
     @RequestMapping(value = "/addAgreement",method = RequestMethod.POST)
     public Object addAgreement(@RequestBody Agreement agreement){
         // проверим на отсутствие параметров
-        if (agreement.getAdressA()==null || agreement.getClientA() == null
-                || agreement.getAgreementNumber().isEmpty()|| agreement.getSrok().isEmpty()
+        if (agreement.getAdressId()==null || agreement.getClientId() == null
+                || agreement.getAgreementNumber().isEmpty()|| agreement.getDateFrom()==null||
+                agreement.getDateTo()==null
                 || agreement.getSrachSumm().isEmpty()||agreement.getComment().isEmpty()
                 ||agreement.getDateComplet().isEmpty()|| agreement.getDateRasheta() == null
                 || agreement.getPrize().isEmpty()||agreement.getSeriesNomer().isEmpty()){
@@ -41,8 +42,9 @@ public class AgreementController {
     //редактирование договора
     @RequestMapping(value = "/editAgreement",method = RequestMethod.POST)
     public Object editAgreement(@RequestBody Agreement agreement){
-        if (agreement.getAdressA()==null || agreement.getClientA() == null
-                || agreement.getAgreementNumber().isEmpty()|| agreement.getSrok().isEmpty()
+        if (agreement.getAdressId()==null || agreement.getClientId() == null
+                || agreement.getAgreementNumber().isEmpty()|| agreement.getDateFrom()==null||
+                agreement.getDateTo()==null
                 || agreement.getSrachSumm().isEmpty()||agreement.getComment().isEmpty()
                 ||agreement.getDateComplet().isEmpty()|| agreement.getDateRasheta() == null
                 || agreement.getPrize().isEmpty()||agreement.getSeriesNomer().isEmpty()){
@@ -71,9 +73,28 @@ public class AgreementController {
                      return "NOT_DATA_FOUND";
                  }
              }catch(Exception e){
-                 System.out.println(e);
                  return "ERROR";
              }
          }
+    }
+    //поиск по id договора
+    @CrossOrigin
+    @RequestMapping(value = "/findByIdAgreement",method = RequestMethod.GET)
+    public Object findAgreementById(@RequestParam Integer id){
+        if (id == null){
+            return "NO_PARAMS";
+        }else{
+            try{
+                Agreement agr = agreementsService.findById(id);
+                if (agr != null){
+                    return agr;
+                }else{
+                    return "NOT_DATA_FOUND";
+                }
+            }catch(Exception e){
+                System.out.println(e);
+                return "ERROR";
+            }
+        }
     }
 }

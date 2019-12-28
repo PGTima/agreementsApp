@@ -18,7 +18,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   aSub: Subscription;
   flagDisabled = true;
 
-  displayedColumns: string[] = ['agreementNumber', 'seriesNomer', 'dateFinish', 'name', 'prize', 'srokDate'];
+  displayedColumns: string[] = ['agreementId', 'seriesNomer', 'dateFinish', 'name', 'prize', 'srokDate'];
   constructor(private agreementsService: AgreementsService,
     private _snackBar: MatSnackBar,
     private router: Router
@@ -54,7 +54,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/createAgreeement'],
       {
         queryParams: {
-          agreementNumber: this.favoriteSeason
+          agreementId: this.favoriteSeason
         }
       }
     );

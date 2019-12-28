@@ -10,17 +10,34 @@ public class State {
     private Long id;
     @Column(name = "state_name")
     private String stateName;
-    public State(){};
+
+    public State(Long id, String stateName) {
+        this.id = id;
+        this.stateName = stateName;
+    }
+
+    public State() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        if (id==null){
+            throw new IllegalArgumentException("Переданный id не может быть пустым!");
+        }
+        this.id = id;
+    }
+
     public String getStateName() {
         return stateName;
     }
 
     public void setStateName(String stateName) {
-        this.stateName = stateName;
-    }
-
-    public State(Long id, String stateName) {
-        this.id = id;
+        if (stateName==null){
+            throw new IllegalArgumentException("Переданный stateName не может быть пустым!");
+        }
         this.stateName = stateName;
     }
 

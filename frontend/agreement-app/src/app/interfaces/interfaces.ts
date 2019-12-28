@@ -29,30 +29,45 @@ export interface Adress {
   buld: String;
 }
 export interface Agreements {
-  agreementNumber: String;
-  comment: String;
-  seriesNomer: String;
-  dateComplet: String;
-  prize: String;
-  srok: String;
-  dateRasheta: String;
-  srachSumm: String;
-  adressA: {
-    index: String;
+  id: number;
+  clientId: {
+    id?: number;
+    name: String;
+    surname: String;
+    patronymic: String;
+    dateBorn: String;
+    clientPassportSeries: String;
+    clientPassportNumber: String;
+  };
+  adressId: {
+    id: number;
+    stateA: {
+      id: number;
+      stateName: String;
+    };
+    dwellingA: {
+      id: number;
+      apartment: String;
+      home: number;
+      room: String;
+      dateDrawelling: String;
+      squareDrawelling: String;
+    };
+    indexA: String;
     edge: String;
     district: String;
     punkt: String;
     korpus: String;
     buld: String;
   };
-  clientA: {
-    id?: number;
-    name: String;
-    surname: String;
-    patronymic: String;
-    date_born: String;
-    passport_series: String;
-    passport_number: String;
-  };
+  agreementNumber: String;
+  comment: String;
+  seriesNomer: String;
+  dateComplet: String;
+  prize: String;
+  dateFrom: String;
+  dateTo: String;
+  dateRasheta: String;
+  srachSumm: String;
 }
 

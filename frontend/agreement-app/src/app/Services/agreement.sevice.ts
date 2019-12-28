@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class AgreementsService {
   private url = 'http://localhost:8080/allAgreement';
-  /* private urlAddNews = 'http://localhost:8000/news/add-news/';*/
+  private urlFindAgreementById = 'http://localhost:8080/findByIdAgreement?id=';
 
   constructor(private http: HttpClient) {
   }
@@ -18,9 +18,8 @@ export class AgreementsService {
     console.log(this.http.get<Agreements[]>(this.url));
     return this.http.get<Agreements[]>(this.url);
   }
-  /*
-    addNews(news: AddNews): Observable<any> {
-      return this.http.post<any>(this.urlAddNews, news);
-    }
-  */
+  getAgreementById(id): Observable<Agreements> {
+    console.log(this.http.get<Agreements>(this.urlFindAgreementById));
+    return this.http.get<Agreements>(this.urlFindAgreementById + id);
+  }
 }

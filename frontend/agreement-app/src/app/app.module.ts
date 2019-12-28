@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ClientsComponent } from './clients-add/clients.component';
 import { AgreementsComponent } from './agreements/agreements.component';
-import { AdressComponent } from './adress/adress.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
@@ -32,7 +31,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppComponent,
     ClientsComponent,
     AgreementsComponent,
-    AdressComponent,
     AgrEditComponent,
     ClientEditComponent,
     ClientListComponent

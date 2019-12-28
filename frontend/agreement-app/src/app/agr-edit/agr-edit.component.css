@@ -59,7 +59,7 @@
 }
 .fiveRow{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
   margin-left :100px;
@@ -79,4 +79,7 @@
 }
 .saveAgr{
   margin-right: 5px;
+}
+.adress-full-width{
+  margin:10px;
 }

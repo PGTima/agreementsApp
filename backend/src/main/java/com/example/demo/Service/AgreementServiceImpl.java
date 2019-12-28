@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class AgreementServiceImpl implements AgreementsService {
+
     @Autowired
     private AgreementsRepository agreementsRepository;
 

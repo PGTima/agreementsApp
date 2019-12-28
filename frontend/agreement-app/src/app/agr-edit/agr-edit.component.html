@@ -1,14 +1,28 @@
 <div class="firstForma">
   <h1>Расчет</h1>
+    <form class = "agreements-form"
+          [formGroup]="forms"
+          (ngSubmit)="onSubmit()">
   <div class="first-container">
     <div class ="firstColumn">
       <p>
-         <mat-form-field class = "strachSumm">
-           <input matInput placeholder="Страховая сумма">
+         <mat-form-field>
+           <input matInput 
+           placeholder="Страховая сумма"
+           formControlName="srachSumm"
+           id="srachSumm"
+           type="text"
+           [ngClass]="{'invalid': forms.get('srachSumm').invalid && forms.get('srachSumm').touched}"
+           >
+           <mat-error *ngIf="forms.get('srachSumm').invalid && forms.get('srachSumm').touched">
+              <mat-error *ngIf="forms.get('srachSumm').errors['required']">
+                  Поле страховая сумма не заполнено!!!
+              </mat-error>
+            </mat-error>
          </mat-form-field>
       </p>
       <p>
-         <mat-form-field class="immovables">
+         <mat-form-field>
            <mat-label>Тип недвижимости</mat-label>
              <mat-select>
                <mat-option *ngFor="let food of foods" [value]="food.value">
@@ -18,26 +32,72 @@
           </mat-form-field>
       </p>
       <p>
-          <mat-form-field class="yearPostroiki">
-            <input matInput placeholder="Год постройки">
-          </mat-form-field>
+          <mat-form-field>
+            <input matInput 
+            placeholder="Год постройки"
+            formControlName="yearPostroiki"
+            id="yearPostroiki"
+            type="text"
+            [ngClass]="{'invalid': forms.get('yearPostroiki').invalid && forms.get('yearPostroiki').touched}"
+           >
+           <mat-error *ngIf="forms.get('yearPostroiki').invalid && forms.get('yearPostroiki').touched">
+              <mat-error *ngIf="forms.get('yearPostroiki').errors['required']">
+                  Поле год постройки не заполнено!!!
+              </mat-error>
+            </mat-error>
+         </mat-form-field>
       </p>
        <p>
-          <mat-form-field class = "square">
-            <input matInput placeholder="Площадь, кв. м">
+          <mat-form-field>
+            <input 
+            matInput placeholder="Площадь, кв. м"
+            formControlName="square"
+            id="square"
+            type="text"
+            [ngClass]="{'invalid': forms.get('square').invalid && forms.get('square').touched}"
+           >
+           <mat-error *ngIf="forms.get('square').invalid && forms.get('square').touched">
+              <mat-error *ngIf="forms.get('square').errors['required']">
+                  Поле площадь не заполнено!!!
+              </mat-error>
+            </mat-error>
           </mat-form-field>
       </p>
     </div>
     <div class = "secondColumn">
        Срок действия с   
       <mat-form-field>
-        <input matInput [matDatepicker]="dateFrom" placeholder="Дата начала договора">
+        <input 
+        matInput [matDatepicker]="dateFrom" 
+        placeholder="Дата начала договора"
+        formControlName="dateFrom"
+        id="dateFrom"
+        type="text"
+        [ngClass]="{'invalid': forms.get('dateFrom').invalid && forms.get('dateFrom').touched}"
+           >
+           <mat-error *ngIf="forms.get('dateFrom').invalid && forms.get('dateFrom').touched">
+              <mat-error *ngIf="forms.get('dateFrom').errors['required']">
+                  Поле дата начала не заполнено!!!
+              </mat-error>
+            </mat-error>
         <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
         <mat-datepicker #dateFrom></mat-datepicker>
       </mat-form-field>
       по
       <mat-form-field>
-        <input matInput [matDatepicker]="dateTo" placeholder="Дата окончания договора">
+        <input matInput 
+        [matDatepicker]="dateTo" 
+        placeholder="Дата окончания договора"
+        formControlName="dateTo"
+        id="dateTo"
+        type="text"
+        [ngClass]="{'invalid': forms.get('dateTo').invalid && forms.get('dateTo').touched}"
+           >
+           <mat-error *ngIf="forms.get('dateTo').invalid && forms.get('dateTo').touched">
+              <mat-error *ngIf="forms.get('dateTo').errors['required']">
+                  Поле дата окончания не заполнено!!!
+              </mat-error>
+            </mat-error>
         <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
         <mat-datepicker #dateTo></mat-datepicker>
       </mat-form-field>
@@ -45,21 +105,66 @@
   </div>
   <button mat-raised-button class="rashetButton" color="primary"> Рассчитать </button>
   <div class="firstRow">
-    <mat-form-field class =" dateRashet">
-      <input matInput placeholder="Дата расчета" >
+    <mat-form-field>
+      <input matInput 
+      placeholder="Дата расчета"
+      formControlName="dateRasheta"
+        id="dateRasheta"
+        type="text"
+        [ngClass]="{'invalid': forms.get('dateRasheta').invalid && forms.get('dateRasheta').touched}"
+           >
+           <mat-error *ngIf="forms.get('dateRasheta').invalid && forms.get('dateRasheta').touched">
+              <mat-error *ngIf="forms.get('dateRasheta').errors['required']">
+                  Поле дата расчета не заполнено!!!
+              </mat-error>
+            </mat-error>
     </mat-form-field>
 
-    <mat-form-field class=" prize">
-      <input matInput placeholder="Премия" >
+    <mat-form-field>
+      <input matInput 
+             placeholder="Премия"
+             formControlName="prize"
+             id="prize"
+             type="text"
+             [ngClass]="{'invalid': forms.get('prize').invalid && forms.get('prize').touched}"
+           >
+           <mat-error *ngIf="forms.get('prize').invalid && forms.get('prize').touched">
+              <mat-error *ngIf="forms.get('prize').errors['required']">
+                  Поле премия не заполнено!!!
+              </mat-error>
+            </mat-error>
     </mat-form-field>
   </div>
 
   <div class="secondRow">
-    <mat-form-field class = "numberAgreement">
-      <input matInput placeholder="№ договора" >
+    <mat-form-field>
+      <input matInput 
+             placeholder="№ договора"
+             formControlName="agreementNumber"
+             id="agreementNumber"
+             type="text"
+             [ngClass]="{'invalid': forms.get('agreementNumber').invalid && forms.get('agreementNumber').touched}"
+           >
+           <mat-error *ngIf="forms.get('agreementNumber').invalid && forms.get('agreementNumber').touched">
+              <mat-error *ngIf="forms.get('agreementNumber').errors['required']">
+                  Поле номер договора не заполнено!!!
+              </mat-error>
+            </mat-error>
     </mat-form-field>
     <mat-form-field>
-     <input matInput [matDatepicker]="dateRes" placeholder="Дата заключения договора">
+     <input matInput 
+            [matDatepicker]="dateRes" 
+            placeholder="Дата заключения договора"
+            formControlName="dateComplet"
+            id="dateComplet"
+            type="text"
+            [ngClass]="{'invalid': forms.get('dateComplet').invalid && forms.get('dateComplet').touched}"
+           >
+           <mat-error *ngIf="forms.get('dateComplet').invalid && forms.get('dateComplet').touched">
+              <mat-error *ngIf="forms.get('dateComplet').errors['required']">
+                  Поле дата завершения не заполнено!!!
+              </mat-error>
+            </mat-error>        
       <mat-datepicker-toggle matSuffix [for]="dateRes"></mat-datepicker-toggle>
       <mat-datepicker #dateRes></mat-datepicker>
     </mat-form-field>
@@ -67,36 +172,235 @@
 <h1>СТРАХОВАТЕЛЬ</h1>
 <div class="threeRow">
     <button mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
-    <mat-form-field class="fio" >
-      <input matInput placeholder="Введите ФИО" [value]="fio">
+    <mat-form-field>
+      <input matInput 
+             placeholder="Введите ФИО" 
+             [value]="fio"
+              formControlName="nameSurnamePatronymic"
+              id="nameSurnamePatronymic"
+              type="text"
+              [ngClass]="{'invalid': forms.get('nameSurnamePatronymic').invalid && forms.get('nameSurnamePatronymic').touched}"
+           >
+           <mat-error *ngIf="forms.get('nameSurnamePatronymic').invalid && forms.get('nameSurnamePatronymic').touched">
+              <mat-error *ngIf="forms.get('nameSurnamePatronymic').errors['required']">
+                  Поле ФИО не заполнено!!!
+              </mat-error>
+            </mat-error>   
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="openDialog()" class="changeClient"> Изменить </button>
 </div>
 <div class="fourRow">
   <mat-form-field>
-     <input matInput [matDatepicker]="dateBorn" placeholder="Дата рождения" [value]="dateBornx" >
+     <input matInput 
+      [matDatepicker]="dateBorn" 
+      placeholder="Дата рождения" 
+      [value]="dateBornx"
+      formControlName="dateBorn"
+      id="dateBorn"
+      type="text"
+      [ngClass]="{'invalid': forms.get('dateBorn').invalid && forms.get('dateBorn').touched}"
+           >
+           <mat-error *ngIf="forms.get('dateBorn').invalid && forms.get('dateBorn').touched">
+              <mat-error *ngIf="forms.get('dateBorn').errors['required']">
+                  Поле дата рождения не заполнено!!!
+              </mat-error>
+            </mat-error> 
       <mat-datepicker-toggle matSuffix [for]="dateBorn"></mat-datepicker-toggle>
       <mat-datepicker #dateBorn></mat-datepicker>
   </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Серия" [value]="series" >
+  <mat-form-field>
+    <input matInput 
+           placeholder="Серия" 
+           [value]="series"
+            formControlName="clientPassportSeries"
+            id="clientPassportSeries"
+            type="text"
+            [ngClass]="{'invalid': forms.get('clientPassportSeries').invalid && forms.get('clientPassportSeries').touched}"
+           >
+           <mat-error *ngIf="forms.get('clientPassportSeries').invalid && forms.get('clientPassportSeries').touched">
+              <mat-error *ngIf="forms.get('clientPassportSeries').errors['required']">
+                  Поле серия паспорта не заполнено!!!
+              </mat-error>
+            </mat-error> 
   </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Номер" [value]="nomer">
+  <mat-form-field>
+    <input matInput 
+           placeholder="Номер" 
+           [value]="nomer"
+           formControlName="clientPassportNumber"
+            id="clientPassportNumber"
+            type="text"
+            [ngClass]="{'invalid': forms.get('clientPassportNumber').invalid && forms.get('clientPassportNumber').touched}"
+           >
+           <mat-error *ngIf="forms.get('clientPassportNumber').invalid && forms.get('clientPassportNumber').touched">
+              <mat-error *ngIf="forms.get('clientPassportNumber').errors['required']">
+                  Поле номер паспорта не заполнено!!!
+              </mat-error>
+            </mat-error> 
   </mat-form-field>
   </div>
 <h1>Адрес недвижимости</h1>
 <div class ="fiveRow">
-  <app-adress></app-adress>
+<div class= "adressRow">
+  <mat-form-field>
+  <mat-label>Государство</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput 
+           placeholder="Индекс"
+           formControlName="indexA"
+           id="indexA"
+           type="text"
+           [ngClass]="{'invalid': forms.get('indexA').invalid && forms.get('indexA').touched}"
+           >
+           <mat-error *ngIf="forms.get('indexA').invalid && forms.get('indexA').touched">
+              <mat-error *ngIf="forms.get('indexA').errors['required']">
+                  Поле индекс не заполнено!!!
+              </mat-error>
+            </mat-error> 
+  </mat-form-field> 
+  <mat-form-field>
+    <input matInput 
+           placeholder="республика, край, область"
+           formControlName="respublika"
+           id="respublika"
+           type="text"
+           [ngClass]="{'invalid': forms.get('respublika').invalid && forms.get('respublika').touched}"
+           >
+           <mat-error *ngIf="forms.get('respublika').invalid && forms.get('respublika').touched">
+              <mat-error *ngIf="forms.get('respublika').errors['required']">
+                  Поле индекс не заполнено!!!
+              </mat-error>
+            </mat-error> 
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput 
+          placeholder="улица"
+          formControlName="street"
+           id="street"
+           type="text"
+           [ngClass]="{'invalid': forms.get('street').invalid && forms.get('street').touched}"
+           >
+           <mat-error *ngIf="forms.get('street').invalid && forms.get('street').touched">
+              <mat-error *ngIf="forms.get('street').errors['required']">
+                  Поле улица не заполнено!!!
+              </mat-error>
+            </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput 
+           placeholder="район"
+           formControlName="distrikt"
+           id="distrikt"
+           type="text"
+           [ngClass]="{'invalid': forms.get('distrikt').invalid && forms.get('distrikt').touched}"
+           >
+           <mat-error *ngIf="forms.get('distrikt').invalid && forms.get('distrikt').touched">
+              <mat-error *ngIf="forms.get('distrikt').errors['required']">
+                  Поле район не заполнено!!!
+              </mat-error>
+            </mat-error>
+  </mat-form-field>
+</div>
+<div class= "adressRowTwo">
+<mat-form-field>
+    <input matInput 
+           placeholder="Населенный пункт"
+            formControlName="punkt"
+           id="punkt"
+           type="text"
+           [ngClass]="{'invalid': forms.get('punkt').invalid && forms.get('punkt').touched}"
+           >
+           <mat-error *ngIf="forms.get('punkt').invalid && forms.get('punkt').touched">
+              <mat-error *ngIf="forms.get('punkt').errors['required']">
+                  Поле населенный пункт не заполнено!!!
+              </mat-error>
+            </mat-error>
+</mat-form-field>
+<mat-form-field>
+    <input matInput 
+           placeholder="дом"
+           formControlName="home"
+           id="home"
+           type="text"
+           [ngClass]="{'invalid': forms.get('home').invalid && forms.get('home').touched}"
+           >
+           <mat-error *ngIf="forms.get('home').invalid && forms.get('home').touched">
+              <mat-error *ngIf="forms.get('home').errors['required']">
+                  Поле дом не заполнено!!!
+              </mat-error>
+            </mat-error>
+</mat-form-field>
+<mat-form-field>
+    <input matInput 
+           placeholder="корпус"
+           formControlName="korpus"
+           id="korpus"
+           type="text"
+           [ngClass]="{'invalid': forms.get('korpus').invalid && forms.get('korpus').touched}"
+           >
+           <mat-error *ngIf="forms.get('korpus').invalid && forms.get('korpus').touched">
+              <mat-error *ngIf="forms.get('korpus').errors['required']">
+                  Поле корпус не заполнено!!!
+              </mat-error>
+            </mat-error>
+</mat-form-field>
+<mat-form-field>
+    <input matInput 
+           placeholder="строение"
+           formControlName="build"
+           id="build"
+           type="text"
+           [ngClass]="{'invalid': forms.get('build').invalid && forms.get('build').touched}"
+           >
+           <mat-error *ngIf="forms.get('build').invalid && forms.get('build').touched">
+              <mat-error *ngIf="forms.get('build').errors['required']">
+                  Поле строение не заполнено!!!
+              </mat-error>
+            </mat-error>
+</mat-form-field>
+<mat-form-field>
+    <input matInput 
+           placeholder="квартира"
+           formControlName="kvartira"
+           id="kvartira"
+           type="text"
+           [ngClass]="{'invalid': forms.get('kvartira').invalid && forms.get('kvartira').touched}"
+           >
+           <mat-error *ngIf="forms.get('kvartira').invalid && forms.get('kvartira').touched">
+              <mat-error *ngIf="forms.get('kvartira').errors['required']">
+                  Поле квартира не заполнено!!!
+              </mat-error>
+            </mat-error>
+</mat-form-field>
+</div>
 </div>
 <h1>КОММЕНТАРИЙ</h1>
 <div class ="sixRow">
-<mat-form-field class="example-full-width">
-    <textarea matInput class="textComment" placeholder="Комментарий к договору"></textarea>
+<mat-form-field>
+    <input matInput 
+          class="textComment"
+           placeholder="Комментарий к договору"
+           formControlName="comment"
+           id="comment"
+           type="text"
+           [ngClass]="{'invalid': forms.get('comment').invalid && forms.get('comment').touched}"
+           >
+           <mat-error *ngIf="forms.get('comment').invalid && forms.get('comment').touched">
+              <mat-error *ngIf="forms.get('comment').errors['required']">
+                  Поле комментарий не заполнено!!!
+              </mat-error>
+            </mat-error>
 </mat-form-field>
 </div>
 <div class ="sevenRow">
-  <button mat-raised-button class="saveAgr" color="primary"> Сохранить </button>
+  <button mat-raised-button class="saveAgr" click="onSubmit()" color="primary"> Сохранить </button>
   <button mat-raised-button class="listAgr" color="primary">К списку договоров </button>
 </div>
+</form>
 </div>

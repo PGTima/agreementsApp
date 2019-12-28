@@ -36,8 +36,10 @@ public class Agreement{
     @Column(name="prize")
     private String prize;
     //срок
-    @Column(name="srok")
-    private String srok;
+    @Column(name="dateFrom")
+    private Date dateFrom;
+    @Column(name="dateTo")
+    private Date dateTo;
     //дата расчета
     @Column(name="dateRasheta")
     private Date dateRasheta;
@@ -45,33 +47,27 @@ public class Agreement{
     @Column(name="srachSumm")
     private String srachSumm;
 
-    public Agreement(Long id, Client clientId, Adress adressId, String agreementNumber, String comment, String seriesNomer, String dateComplet, String prize, String srok, Date dateRasheta, String srachSumm) {
-        this.id = id;
-        this.clientId = clientId;
-        this.adressId = adressId;
-        this.agreementNumber = agreementNumber;
-        this.comment = comment;
-        this.seriesNomer = seriesNomer;
-        this.dateComplet = dateComplet;
-        this.prize = prize;
-        this.srok = srok;
-        this.dateRasheta = dateRasheta;
-        this.srachSumm = srachSumm;
+    public Long getId() {
+        return id;
     }
-    public Agreement(){};
-    public Client getClientA() {
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Client getClientId() {
         return clientId;
     }
 
-    public void setClientA(Client clientA) {
+    public void setClientId(Client clientId) {
         this.clientId = clientId;
     }
 
-    public Adress getAdressA() {
+    public Adress getAdressId() {
         return adressId;
     }
 
-    public void setAdressA(Adress adressId) {
+    public void setAdressId(Adress adressId) {
         this.adressId = adressId;
     }
 
@@ -107,20 +103,19 @@ public class Agreement{
         this.dateComplet = dateComplet;
     }
 
-    public String getPrize() {
-        return prize;
-    }
-
-    public void setPrize(String prize) {
+    public Agreement(Long id, Client clientId, Adress adressId, String agreementNumber, String comment, String seriesNomer, String dateComplet, String prize, Date dateFrom, Date dateTo, Date dateRasheta, String srachSumm) {
+        this.id = id;
+        this.clientId = clientId;
+        this.adressId = adressId;
+        this.agreementNumber = agreementNumber;
+        this.comment = comment;
+        this.seriesNomer = seriesNomer;
+        this.dateComplet = dateComplet;
         this.prize = prize;
-    }
-
-    public String getSrok() {
-        return srok;
-    }
-
-    public void setSrok(String srok) {
-        this.srok = srok;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.dateRasheta = dateRasheta;
+        this.srachSumm = srachSumm;
     }
 
     public Date getDateRasheta() {
@@ -137,6 +132,39 @@ public class Agreement{
 
     public void setSrachSumm(String srachSumm) {
         this.srachSumm = srachSumm;
+    }
+
+    public void setPrize(String prize) {
+        this.prize = prize;
+    }
+
+    public Agreement() {
+    }
+
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(Date dateFrom) {
+        if (this.getDateTo().compareTo(dateFrom)== -1 ||this.getDateTo().compareTo(dateFrom)== 0){
+            throw new IllegalArgumentException("Дата начала не может быть больше даты окончания ");
+        }
+        this.dateFrom = dateFrom;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        if (this.getDateFrom().compareTo(dateTo)== -1 ||this.getDateFrom().compareTo(dateTo)== 0){
+            throw new IllegalArgumentException("Дата конца не может быть меньше даты начала ");
+        }
+        this.dateTo = dateTo;
+    }
+
+    public String getPrize() {
+        return prize;
     }
 
     public String getPrizeN(Dwelling dw ){
@@ -161,29 +189,16 @@ public class Agreement{
         }
 
         if (dw.getSquareDrawelling()<50 ){
+
             PD = 1.2;
         }else if (dw.getSquareDrawelling()<100 && dw.getSquareDrawelling()>50){
             PD = 1.5;
         }else if(dw.getSquareDrawelling()>100){
             PD = 2.0;
         }
-        summ = (Double.valueOf(this.getSrachSumm())/Double.valueOf(this.getSrok()))*TH*GP*PD;
+        summ = (Double.valueOf(this.getSrachSumm())/
+                Double.valueOf((int)(this.getDateTo().getTime()- this.getDateFrom().getTime())/(24*60*60*1000)))*TH*GP*PD;
         return summ.toString();
     }
-    @Override
-    public String toString() {
-        return "Agreement{" +
-                "id=" + id +
-                ", clientId=" + clientId +
-                ", adressId=" + adressId +
-                ", agreementNumber='" + agreementNumber + '\'' +
-                ", comment='" + comment + '\'' +
-                ", seriesNomer='" + seriesNomer + '\'' +
-                ", dateComplet='" + dateComplet + '\'' +
-                ", prize='" + prize + '\'' +
-                ", srok='" + srok + '\'' +
-                ", dateRasheta=" + dateRasheta +
-                ", srachSumm='" + srachSumm + '\'' +
-                '}';
-    }
+
 }
