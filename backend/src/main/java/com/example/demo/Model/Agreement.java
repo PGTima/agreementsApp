@@ -22,16 +22,16 @@ public class Agreement{
     @JoinColumn(name = "adress_id")
     private Adress adressId;
 
-    @Column(name = "agreement_number", length=6)
+    @Column(name = "agreement_number", length=6,nullable = false, unique = true)
     private String agreementNumber;
-    @Column(name = "comment")
+    @Column(name = "comment",nullable = false)
     private String comment;
 
     @Column(name="seriesNomer")
     private String seriesNomer;
     //дата создания
     @Column(name="dateComplet")
-    private String dateComplet;
+    private Date dateComplet;
     //премия
     @Column(name="prize")
     private String prize;
@@ -95,15 +95,15 @@ public class Agreement{
         this.seriesNomer = seriesNomer;
     }
 
-    public String getDateComplet() {
+    public Date getDateComplet() {
         return dateComplet;
     }
 
-    public void setDateComplet(String dateComplet) {
+    public void setDateComplet(Date dateComplet) {
         this.dateComplet = dateComplet;
     }
 
-    public Agreement(Long id, Client clientId, Adress adressId, String agreementNumber, String comment, String seriesNomer, String dateComplet, String prize, Date dateFrom, Date dateTo, Date dateRasheta, String srachSumm) {
+    public Agreement(Long id, Client clientId, Adress adressId, String agreementNumber, String comment, String seriesNomer, Date dateComplet, String prize, Date dateFrom, Date dateTo, Date dateRasheta, String srachSumm) {
         this.id = id;
         this.clientId = clientId;
         this.adressId = adressId;
@@ -201,4 +201,21 @@ public class Agreement{
         return summ.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Agreement{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", adressId=" + adressId +
+                ", agreementNumber='" + agreementNumber + '\'' +
+                ", comment='" + comment + '\'' +
+                ", seriesNomer='" + seriesNomer + '\'' +
+                ", dateComplet=" + dateComplet +
+                ", prize='" + prize + '\'' +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", dateRasheta=" + dateRasheta +
+                ", srachSumm='" + srachSumm + '\'' +
+                '}';
+    }
 }

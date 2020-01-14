@@ -31,10 +31,12 @@ public class Adress {
     private String korpus;
     @Column(name = "buld")
     private String buld;
+    @Column(name = "street")
+    private String street;
 
-    public Adress(Long id, State stateA, Dwelling dwellingA, String indexA, String edge, String district, String punkt, String korpus, String buld) {
+    public Adress(Long id, State stateA, Dwelling dwellingA, String indexA, String edge, String district, String punkt, String korpus, String buld,String street) {
         if (id==null || stateA == null ||dwellingA == null || indexA==null||edge==null||district==null
-                ||punkt==null||korpus==null||buld==null){
+                ||punkt==null||korpus==null||buld==null|| street==null ){
             throw new IllegalArgumentException("Переданные параметры не могут быть пустыми!");
         }
         this.id = id;
@@ -46,6 +48,7 @@ public class Adress {
         this.punkt = punkt;
         this.korpus = korpus;
         this.buld = buld;
+        this.street=street;
     }
 
     public Adress() {
@@ -61,6 +64,14 @@ public class Adress {
         }
 
         this.id = id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public State getStateA() {
@@ -163,6 +174,7 @@ public class Adress {
                 ", punkt='" + punkt + '\'' +
                 ", korpus='" + korpus + '\'' +
                 ", buld='" + buld + '\'' +
+                ", street='" + street + '\'' +
                 '}';
     }
 }

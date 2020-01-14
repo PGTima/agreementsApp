@@ -71,7 +71,7 @@
 }
 .sixRow{
    margin-left: 100px;
-   
+
 }
 .sevenRow{
    align-items: center;
@@ -82,4 +82,17 @@
 }
 .adress-full-width{
   margin:10px;
+}
+.loader{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+}
+h1{
+  margin-left: 70px;
+}
+.nameSurnamePatronymic{
+  width: 400px;
 }

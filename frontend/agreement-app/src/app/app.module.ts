@@ -23,8 +23,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatRadioModule,
     MatSnackBarModule,
     AppRoutingModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatCardModule
   ],
   providers: [
   ],

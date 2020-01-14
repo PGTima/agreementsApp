@@ -41,5 +41,9 @@ public class AgreementServiceImpl implements AgreementsService {
      public Agreement editAgreement(Agreement agreement){
         return agreementsRepository.saveAndFlush(agreement);
     }
+    @Override
+    public List<Agreement> findByAgreementNumber(String agreementNumber){
+        return agreementsRepository.findByAgreementNumber(agreementNumber);
+    }
 
 }

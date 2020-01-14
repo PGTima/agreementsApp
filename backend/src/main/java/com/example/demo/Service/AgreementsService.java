@@ -11,5 +11,5 @@ public interface AgreementsService {
     List<Agreement> findByClientId(long id );
     List<Agreement> findByAdressId(long id);
     Agreement editAgreement(Agreement agreement);
-
+    List<Agreement> findByAgreementNumber(String agreementNumber);
 }

@@ -8,6 +8,7 @@ import java.util.List;
 @Repository
 public interface AgreementsRepository extends JpaRepository<Agreement,Long> {
     Agreement findById(long id);
+    List<Agreement> findByAgreementNumber(String agreementNumber);
     List<Agreement> findByClientId(long id );
     List<Agreement> findByAdressId(long id);
 }

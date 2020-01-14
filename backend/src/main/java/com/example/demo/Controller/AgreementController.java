@@ -18,10 +18,9 @@ public class AgreementController {
     public Object addAgreement(@RequestBody Agreement agreement){
         // проверим на отсутствие параметров
         if (agreement.getAdressId()==null || agreement.getClientId() == null
-                || agreement.getAgreementNumber().isEmpty()|| agreement.getDateFrom()==null||
-                agreement.getDateTo()==null
+                || agreement.getAgreementNumber().isEmpty()
                 || agreement.getSrachSumm().isEmpty()||agreement.getComment().isEmpty()
-                ||agreement.getDateComplet().isEmpty()|| agreement.getDateRasheta() == null
+                ||agreement.getDateComplet()==null|| agreement.getDateRasheta() == null
                 || agreement.getPrize().isEmpty()||agreement.getSeriesNomer().isEmpty()){
             return "NO_PARAMS";
         }else{
@@ -43,10 +42,9 @@ public class AgreementController {
     @RequestMapping(value = "/editAgreement",method = RequestMethod.POST)
     public Object editAgreement(@RequestBody Agreement agreement){
         if (agreement.getAdressId()==null || agreement.getClientId() == null
-                || agreement.getAgreementNumber().isEmpty()|| agreement.getDateFrom()==null||
-                agreement.getDateTo()==null
+                || agreement.getAgreementNumber().isEmpty()
                 || agreement.getSrachSumm().isEmpty()||agreement.getComment().isEmpty()
-                ||agreement.getDateComplet().isEmpty()|| agreement.getDateRasheta() == null
+                ||agreement.getDateComplet()==null|| agreement.getDateRasheta() == null
                 || agreement.getPrize().isEmpty()||agreement.getSeriesNomer().isEmpty()){
             return "NO_PARAMS";
         }else{
@@ -94,6 +92,23 @@ public class AgreementController {
             }catch(Exception e){
                 System.out.println(e);
                 return "ERROR";
+            }
+        }
+    }
+    //поиск по номеру договора
+    @CrossOrigin
+    @RequestMapping(value = "/findByAgreementNumber",method = RequestMethod.GET)
+    public Boolean findAgreementById(@RequestParam String agreementNumber){
+        if (agreementNumber == null){
+            System.out.println(agreementNumber);
+            return false;
+        }else{
+            try{
+                System.out.println( agreementsService.findByAgreementNumber(agreementNumber));
+                return agreementsService.findByAgreementNumber(agreementNumber).size() > 0;
+            }catch(Exception e){
+                System.out.println(e);
+                return false;
             }
         }
     }

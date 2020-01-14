@@ -59,6 +59,7 @@ export interface Agreements {
     punkt: String;
     korpus: String;
     buld: String;
+    street: String;
   };
   agreementNumber: String;
   comment: String;
@@ -69,5 +70,13 @@ export interface Agreements {
   dateTo: String;
   dateRasheta: String;
   srachSumm: String;
+}
+export interface State {
+  id: number;
+  stateName: String;
+}
+export interface TypeDrawelling {
+  id: number;
+  name: String;
 }
 

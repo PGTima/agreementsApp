@@ -48,7 +48,6 @@ export class ClientsComponent implements OnInit, OnDestroy {
 
   public onSubmit() {
     this.form.disable();
-    console.log(this.form.value);
     this.client$ = this.clientService.addClient(this.form.value);
     this.client$.subscribe((data =>
       this.client = data),

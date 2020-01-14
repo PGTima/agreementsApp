@@ -2,6 +2,7 @@ package com.example.demo.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "clients")
@@ -11,21 +12,21 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "client_id")
     private long id;
-    @Column(name = "client_name")
+    @Column(name = "client_name",nullable = false)
     private String name;
-    @Column(name = "client_surname")
+    @Column(name = "client_surname",nullable = false)
     private String surname;
-    @Column(name = "client_patronymic")
+    @Column(name = "client_patronymic",nullable = false)
     private String patronymic;
-    @Column(name = "client_date_born")
-    private String dateBorn;
-    @Column(name = "client_passport_series")
+    @Column(name = "client_date_born",nullable = false)
+    private Date dateBorn;
+    @Column(name = "client_passport_series",nullable = false,length = 4)
     private String clientPassportSeries;
-    @Column(name = "client_passport_number")
+    @Column(name = "client_passport_number",nullable = false,length = 6)
     private String clientPassportNumber;
 
     public Client(){};
-    public Client(String name, String surname, String patronymic, String dateBorn, String clientPassportSeries, String clientPassportNumber) {
+    public Client(String name, String surname, String patronymic, Date dateBorn, String clientPassportSeries, String clientPassportNumber) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -62,11 +63,11 @@ public class Client {
         this.patronymic = patronymic;
     }
 
-    public String getDateBorn() {
+    public Date getDateBorn() {
         return dateBorn;
     }
 
-    public void setDateBorn(String dateBorn) {
+    public void setDateBorn(Date dateBorn) {
         this.dateBorn = dateBorn;
     }
 
@@ -75,7 +76,7 @@ public class Client {
     }
 
     public void setClientPassportSeries(String clientPassportSeries) {
-        if (clientPassportSeries.length()> 4 || clientPassportSeries.length()<0){
+        if (clientPassportSeries.length() > 4 || clientPassportSeries.length() < 0){
             throw new IllegalArgumentException("Длина  серии паспарта не может быть длинее 4 символов или пустой ");
         }else{
             this.clientPassportSeries = clientPassportSeries;

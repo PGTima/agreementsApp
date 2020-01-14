@@ -43,7 +43,7 @@ public class ClientController {
     @CrossOrigin
     @RequestMapping(value = "/editClient",method = RequestMethod.POST)
     public Object editClient(@RequestBody Client client) {
-      if (client.getName().isEmpty()||client.getSurname().isEmpty()||client.getDateBorn().isEmpty()||client.getPatronymic().isEmpty()
+      if (client.getName().isEmpty()||client.getSurname().isEmpty()||client.getDateBorn()== null||client.getPatronymic().isEmpty()
               ||client.getClientPassportSeries().isEmpty()||client.getClientPassportNumber().isEmpty()){
           return "NO_PARAMS";
       }else{

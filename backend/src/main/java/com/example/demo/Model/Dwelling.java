@@ -22,6 +22,7 @@ public class Dwelling {
     @Column(name = "square_dwelling")
     private Float squareDrawelling;
 
+
     public Dwelling(Long id, Integer apartment, Integer home, Integer room, Date dateDrawelling, Float squareDrawelling) {
         this.id = id;
         this.apartment = apartment;
