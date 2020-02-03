@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -35,10 +37,6 @@ public class Adress {
     private String street;
 
     public Adress(Long id, State stateA, Dwelling dwellingA, String indexA, String edge, String district, String punkt, String korpus, String buld,String street) {
-        if (id==null || stateA == null ||dwellingA == null || indexA==null||edge==null||district==null
-                ||punkt==null||korpus==null||buld==null|| street==null ){
-            throw new IllegalArgumentException("Переданные параметры не могут быть пустыми!");
-        }
         this.id = id;
         this.stateA = stateA;
         this.dwellingA = dwellingA;
@@ -59,10 +57,6 @@ public class Adress {
     }
 
     public void setId(Long id) {
-        if (id==null){
-            throw new IllegalArgumentException("Переданный id не может быть пустым!");
-        }
-
         this.id = id;
     }
 
@@ -79,9 +73,6 @@ public class Adress {
     }
 
     public void setStateA(State stateA) {
-        if (stateA==null){
-            throw new IllegalArgumentException("Переданный stateA не может быть пустым!");
-        }
         this.stateA = stateA;
     }
 
@@ -90,9 +81,6 @@ public class Adress {
     }
 
     public void setDwellingA(Dwelling dwellingA) {
-        if (dwellingA==null){
-            throw new IllegalArgumentException("Переданный dwellingA не может быть пустым!");
-        }
         this.dwellingA = dwellingA;
     }
 
@@ -101,9 +89,6 @@ public class Adress {
     }
 
     public void setIndexA(String indexA) {
-        if (indexA==null){
-            throw new IllegalArgumentException("Переданный dwellingA не может быть пустым!");
-        }
         this.indexA = indexA;
     }
 
@@ -112,9 +97,6 @@ public class Adress {
     }
 
     public void setEdge(String edge) {
-        if (edge==null){
-            throw new IllegalArgumentException("Переданный edge не может быть пустым!");
-        }
         this.edge = edge;
     }
 
@@ -123,9 +105,6 @@ public class Adress {
     }
 
     public void setDistrict(String district) {
-        if (district==null){
-            throw new IllegalArgumentException("Переданный district не может быть пустым!");
-        }
         this.district = district;
     }
 
@@ -134,9 +113,6 @@ public class Adress {
     }
 
     public void setPunkt(String punkt) {
-        if (punkt==null){
-            throw new IllegalArgumentException("Переданный punkt не может быть пустым!");
-        }
         this.punkt = punkt;
     }
 
@@ -145,9 +121,6 @@ public class Adress {
     }
 
     public void setKorpus(String korpus) {
-        if (korpus==null){
-            throw new IllegalArgumentException("Переданный korpus не может быть пустым!");
-        }
         this.korpus = korpus;
     }
 
@@ -156,9 +129,6 @@ public class Adress {
     }
 
     public void setBuld(String buld) {
-        if (buld==null){
-            throw new IllegalArgumentException("Переданный buld не может быть пустым!");
-        }
         this.buld = buld;
     }
 

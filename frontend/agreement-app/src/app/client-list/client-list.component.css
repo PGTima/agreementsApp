@@ -5,3 +5,9 @@ table {
   margin-top:5px;
   margin-left: 25%;
 }
+mat-progress-spinner{
+  margin: 0;
+  top: 50%;
+  left: 40%;
+  opacity: 0.5;
+}

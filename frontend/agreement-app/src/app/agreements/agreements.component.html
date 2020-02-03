@@ -4,7 +4,6 @@
   <button mat-raised-button color="primary" [disabled]="flagDisabled" (click)="openAgreement()"> Открыть договор
   </button>
 
-
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Checkbox Column -->
@@ -58,4 +57,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
     </tr>
   </table>
+<mat-progress-spinner 
+    *ngIf="snipValue"
+    mode ="indeterminate">
+</mat-progress-spinner>
 </div>

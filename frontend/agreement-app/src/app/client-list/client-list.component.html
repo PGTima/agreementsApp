@@ -28,7 +28,7 @@
     <ng-container matColumnDef="dateBorn">
       <th mat-header-cell *matHeaderCellDef> Дата рождения </th>
       <td mat-cell *matCellDef="let clients">
-        {{clients.dateBorn}}
+        {{clients.dateBorn | date : 'MM/dd/yyyy'}}
       </td>
     </ng-container>
 
@@ -53,8 +53,12 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
     </tr>
   </table>
+  <mat-progress-spinner 
+    *ngIf="snipValue"
+     mode ="indeterminate">
+</mat-progress-spinner>
 <div class="listButton">
-   <button mat-raised-button (click)="changeUser()" color="primary" >Выбрать </button>
-   <button mat-raised-button (click)="addUser()" color="primary" >Новый </button>
+   <button mat-raised-button (click)="changeUser()" color="primary" [disabled]="flagDisabled">Выбрать </button>
+   <button mat-raised-button (click)="addUser()" color="primary"  >Новый </button>
    <button mat-raised-button (click)="close()" color="primary" >Закрыть </button>
 </div>

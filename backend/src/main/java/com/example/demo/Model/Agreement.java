@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -36,9 +38,9 @@ public class Agreement{
     @Column(name="prize")
     private String prize;
     //срок
-    @Column(name="dateFrom")
+    @Column(name="date_From")
     private Date dateFrom;
-    @Column(name="dateTo")
+    @Column(name="date_To")
     private Date dateTo;
     //дата расчета
     @Column(name="dateRasheta")
@@ -146,10 +148,6 @@ public class Agreement{
     }
 
     public void setDateFrom(Date dateFrom) {
-        if (this.getDateTo().compareTo(dateFrom)== -1 ||this.getDateTo().compareTo(dateFrom)== 0){
-            throw new IllegalArgumentException("Дата начала не может быть больше даты окончания ");
-        }
-        this.dateFrom = dateFrom;
     }
 
     public Date getDateTo() {
@@ -157,9 +155,6 @@ public class Agreement{
     }
 
     public void setDateTo(Date dateTo) {
-        if (this.getDateFrom().compareTo(dateTo)== -1 ||this.getDateFrom().compareTo(dateTo)== 0){
-            throw new IllegalArgumentException("Дата конца не может быть меньше даты начала ");
-        }
         this.dateTo = dateTo;
     }
 

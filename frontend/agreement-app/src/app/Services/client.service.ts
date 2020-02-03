@@ -16,8 +16,8 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
   // получение всех клиентов
-  getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.url);
+  getAllClients(): Observable<any> {
+    return this.http.get<any>(this.url);
   }
   // создание клиента
   addClient(clients: Client): Observable<any> {

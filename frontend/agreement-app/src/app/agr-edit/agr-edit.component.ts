@@ -2,16 +2,16 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientEditComponent } from 'src/app/client-edit/client-edit.component';
 import { ClientListComponent } from 'src/app/client-list/client-list.component';
-import {Client, Agreements, State, TypeDrawelling} from 'src/app/interfaces/interfaces';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import { Client, Agreements, State, TypeDrawelling, Adress, Dwelling } from 'src/app/interfaces/interfaces';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { AgreementsService } from 'src/app/Services/agreement.sevice';
 import { Observable, Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdressService } from 'src/app/Services/adress.service';
 import * as moment from 'moment';
-import {error} from "util";
-import {catchError, map, tap} from "rxjs/operators";
+import { catchError, map, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-agr-edit',
@@ -29,30 +29,43 @@ export class AgrEditComponent implements OnInit, OnDestroy {
   forms: FormGroup;
   checkBool: Boolean;
   agreement: Agreements;
+
   agreements$: Observable<Agreements>;
+
   checkAgrNumber$: Observable<Boolean>;
+
   states: State[];
   state$: Observable<State[]>;
+
   typeDrawelling: TypeDrawelling[];
   selectedState: number;
+
   DateFrom: Date = new Date();
   DateFromMax: Date;
   DateTo: Date = new Date();
   DateToMax: Date = new Date();
 
+  calculated$: Observable<any>;
+  prize: any;
+  selectedDrawell;
+  drawelling$: Observable<any>;
+  drawelling: Dwelling;
+  adress$: Observable<any>;
+  adress: Adress;
+
   constructor(public dialog: MatDialog,
-              private router: Router,
-              private route: ActivatedRoute,
-              private agreementsService: AgreementsService,
-              private adressService: AdressService,
-              private _snackBar: MatSnackBar) {
+    private router: Router,
+    private route: ActivatedRoute,
+    private agreementsService: AgreementsService,
+    private adressService: AdressService,
+    private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.typeDrawelling = [
-      {id: 1, name: 'Квартира'},
-      {id: 2, name: 'Дом'},
-      {id: 3, name: 'Комната'}
+      { id: 1, name: 'Квартира' },
+      { id: 2, name: 'Дом' },
+      { id: 3, name: 'Комната' }
     ];
     this.checkBool = false;
     this.forms = new FormGroup({
@@ -129,17 +142,15 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       this.agreements$ = this.agreementsService.getAgreementById(this.agreement_id);
       this.checkBool = true;
       this.agreements$.subscribe((data =>
-          this.agreement = data),
+        this.agreement = data),
         (error) => (this.checkBool = false,
-          this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', {duration: 5000})),
+          this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 })),
         () => {
           this.forms.controls.srachSumm.setValue(this.agreement.srachSumm);
           // @ts-ignore
           this.forms.controls.dateRasheta.setValue(moment(this.agreement.dateRasheta).format('L'));
           // @ts-ignore
           this.forms.controls.dateFrom.setValue((new Date(this.agreement.dateFrom)).toISOString());
-          console.log(this.agreement.dateFrom);
-          console.log(this.DateFrom);
           if (this.agreement.dateFrom == null || this.agreement.dateFrom === undefined) {
             // @ts-ignore
             this.forms.controls.dateFrom.setValue((this.DateFrom).toISOString());
@@ -151,8 +162,8 @@ export class AgrEditComponent implements OnInit, OnDestroy {
           this.forms.controls.dateTo.setValue((new Date(this.agreement.dateTo)).toISOString());
           // @ts-ignore
           if (this.agreement.dateTo == null || this.agreement.dateTo === undefined) {
-           this.DateTo = new Date(this.DateFrom.setDate(this.DateFrom.getDate() + 1));
-           this.forms.controls.dateTo.setValue((new Date(this.DateTo)).toISOString());
+            this.DateTo = new Date(this.DateFrom.setDate(this.DateFrom.getDate() + 1));
+            this.forms.controls.dateTo.setValue((new Date(this.DateTo)).toISOString());
           }
           this.forms.controls.prize.setValue(this.agreement.prize);
           // @ts-ignore
@@ -192,12 +203,15 @@ export class AgrEditComponent implements OnInit, OnDestroy {
     this.state$ = this.adressService.getState();
     this.checkBool = true;
     this.state$.subscribe((data =>
-        this.states = data),
+      this.states = data),
       error => (this.checkBool = false,
-        this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', {duration: 5000})),
+        this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 })),
       () => {
         this.checkBool = false;
-        this.selectedState = this.agreement.adressId.stateA.id;
+        if (this.agreement_id !== null && this.agreement_id !== undefined) {
+          this.selectedState = this.agreement.adressId.stateA.id;
+        }
+
       }
     );
     // отслеживаем изменение дат договора
@@ -211,9 +225,9 @@ export class AgrEditComponent implements OnInit, OnDestroy {
     });
   }
 
- public openDialog() {
+  public openDialog() {
     if (this.client != null || this.client.clientPassportSeries !== undefined) {
-      const dialogRef = this.dialog.open(ClientEditComponent, {data: this.client});
+      const dialogRef = this.dialog.open(ClientEditComponent, { data: this.client });
       dialogRef.afterClosed().subscribe(result => {
         console.log(result);
       });
@@ -229,6 +243,10 @@ export class AgrEditComponent implements OnInit, OnDestroy {
         this.dateBornx = new Date(Date.parse(this.client.dateBorn.toString()));
         this.series = this.client.clientPassportSeries;
         this.nomer = this.client.clientPassportNumber;
+        this.forms.controls.nameSurnamePatronymic.setValue(this.fio);
+        this.forms.controls.dateBorn.setValue(this.dateBornx);
+        this.forms.controls.clientPassportSeries.setValue(this.series);
+        this.forms.controls.clientPassportNumber.setValue(this.nomer);
       }
     });
   }
@@ -242,49 +260,111 @@ export class AgrEditComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.forms.disable();
     // подготовим объект для создания нового договора
-    this.agreement.adressId.street = this.forms.controls.street.value;
-    this.agreement.adressId.stateA.id = this.selectedState;
-    this.agreement.adressId.dwellingA.room = null;
-    this.agreement.adressId.dwellingA.apartment = null;
-    this.agreement.adressId.dwellingA.home = this.forms.controls.home.value;
-    this.agreement.adressId.dwellingA.dateDrawelling = (new Date(this.forms.controls.yearPostroiki.value)).toDateString();
-    this.agreement.adressId.dwellingA.squareDrawelling = this.forms.controls.square.value;
-    this.agreement.adressId.korpus = this.forms.controls.korpus.value;
-    this.agreement.adressId.district = this.forms.controls.distrikt.value;
-    this.agreement.adressId.indexA = this.forms.controls.indexA.value;
-    this.agreement.adressId.buld = this.forms.controls.build.value;
-    this.agreement.adressId.edge = this.forms.controls.respublika.value;
-    this.agreement.adressId.punkt = this.forms.controls.punkt.value;
-    //
-    this.agreement.clientId.name = (this.forms.controls.nameSurnamePatronymic.value).split(' ')[0];
-    this.agreement.clientId.surname = (this.forms.controls.nameSurnamePatronymic.value).split(' ')[1];
-    this.agreement.clientId.patronymic = (this.forms.controls.nameSurnamePatronymic.value).split(' ')[2];
-    this.agreement.clientId.dateBorn = this.forms.controls.dateBorn.value;
-    this.agreement.clientId.clientPassportSeries = this.forms.controls.clientPassportSeries.value;
-    this.agreement.clientId.clientPassportNumber = this.forms.controls.clientPassportNumber.value;
-    //
-    this.agreement.agreementNumber = this.forms.controls.agreementNumber.value;
-    this.agreement.comment = this.forms.controls.comment.value;
-    this.agreement.dateComplet = this.forms.controls.dateComplet.value;
-    this.agreement.dateFrom = this.forms.controls.dateFrom.value;
-    this.agreement.dateTo = this.forms.controls.dateTo.value;
-    this.agreement.dateRasheta = this.forms.controls.dateRasheta.value;
-    this.agreement.prize = this.forms.controls.prize.value;
-    this.agreement.srachSumm = this.forms.controls.srachSumm.value;
-    this.agreement.seriesNomer = this.forms.controls.clientPassportSeries.value + ' ' + this.forms.controls.clientPassportNumber.value;
-    this.agreements$ = this.agreementsService.addAgreement(this.agreement);
-    console.log(JSON.stringify(this.agreement));
-    this.agreements$.subscribe((data => this.agreement = data),
-      () => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', {duration: 5000}),
-      () => this._snackBar.open('Договор успешно добавлен!!!', 'Выйти', {duration: 5000})
-    );
+    if (this.forms.controls.dateRasheta.value!== null || this.forms.controls.dateRasheta.value!==undefined) {
+      this.forms.controls.dateRasheta.setValue((new Date(this.forms.controls.dateRasheta.value).toISOString()));
+    }else{
+      this.forms.controls.dateRasheta.setValue(new Date().toISOString()));
+    }; 
+    if (this.forms.controls.dateComplet.value!==null || this.forms.controls.dateComplet.value!==undefined){
+      this.forms.controls.dateComplet.setValue((new Date(this.forms.controls.dateComplet.value)).toISOString());
+    }else{
+      this.forms.controls.dateComplet.setValue((new Date().toISOString()));
+    }; 
+    this.agreement = {
+      clientId: {
+        id: this.client.id,
+        name: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[0],
+        surname: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[1],
+        patronymic: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[2],
+        dateBorn: this.forms.controls.dateBorn.value,
+        clientPassportSeries: this.forms.controls.clientPassportSeries.value,
+        clientPassportNumber: this.forms.controls.clientPassportNumber.value
+      },
+      adressId: {
+        stateA: {
+          id: this.selectedState
+        },
+        dwellingA: {
+          apartment: '',
+          home: this.forms.controls.home.value,
+          room: '',
+          dateDrawelling: (new Date(this.forms.controls.yearPostroiki.value)).toISOString(),
+          squareDrawelling: this.forms.controls.square.value
+        },
+        indexA: this.forms.controls.indexA.value,
+        edge: this.forms.controls.respublika.value,
+        district: this.forms.controls.distrikt.value,
+        punkt: this.forms.controls.punkt.value,
+        korpus: this.forms.controls.korpus.value,
+        buld: this.forms.controls.build.value,
+        street: this.forms.controls.street.value,
+      },
+      agreementNumber: this.forms.controls.agreementNumber.value,
+      comment: this.forms.controls.comment.value,
+      seriesNomer:this.forms.controls.clientPassportSeries.value + ' ' + this.forms.controls.clientPassportNumber.value,
+      dateComplet: this.forms.controls.dateComplet.value,
+      prize: this.forms.controls.prize.value,
+      dateFrom: this.forms.controls.dateFrom.value,
+      dateTo: this.forms.controls.dateTo.value,
+      dateRasheta:this.forms.controls.dateRasheta.value,
+      srachSumm: this.forms.controls.srachSumm.value,
+      }
+   
+    // Заполним объект drawelling для создания объекта
+    this.drawelling = {
+      apartment: null,
+      home: this.forms.controls.home.value,
+      room: null,
+      dateDrawelling: (new Date(this.forms.controls.yearPostroiki.value)).toISOString(),
+      squareDrawelling: this.forms.controls.square.value
+    }
+    // выполним запрос
+    this.drawelling$ = this.adressService.addDrawelling(this.drawelling);
+    this.drawelling$.subscribe(data => {
+    if (data !== null || data !== undefined) {
+      this.drawelling = data;
+      this.adress = {
+        stateA: {
+          id: this.selectedState
+        },
+        dwellingA: {
+          id: this.drawelling.id
+        },
+        indexA: this.forms.controls.indexA.value,
+        edge: this.forms.controls.respublika.value,
+        district: this.forms.controls.distrikt.value,
+        punkt: this.forms.controls.punkt.value,
+        korpus: this.forms.controls.korpus.value,
+        buld: this.forms.controls.build.value,
+        street:this.forms.controls.street.value
+       }
+       //выполнимзапрос для добавления адреса
+       this.adress$ = this.adressService.addAdress(this.adress);
+       this.adress$.subscribe((val =>
+        {
+          if (val !==null || val!== undefined){
+            this.adress = val;
+            this.agreement.adressId.id = this.adress.id;
+            this.agreement.adressId.dwellingA.id = this.drawelling.id;
+            this.agreements$ = this.agreementsService.addAgreement(this.agreement);
+            this.agreements$.subscribe((vald => this.agreement = vald),
+             () => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
+             () => this._snackBar.open('Договор успешно добавлен!!!', 'Выйти', { duration: 5000 }));
+          }
+        }
+        ),
+       () => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }));
+    }},
+    () => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }));
   }
+
   onListAgr() {
     this.router.navigate(['/agreements']);
   }
-  yearValidator(control: FormControl): {[s: string]: boolean} {
+
+  yearValidator(control: FormControl): { [s: string]: boolean } {
     if (control.value > (new Date()).getFullYear()) {
-      return {'yearValidator': true};
+      return { 'yearValidator': true };
     }
     return null;
   }
@@ -294,5 +374,20 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       map(isTaken => (isTaken && this.agreement.agreementNumber !== ctrl.value ? { uniqueAlterEgo: true } : null)),
       catchError(() => null)
     );
+  }
+  // расчитать основные показатели по договору
+  calculate() {
+    this.calculated$ = this.agreementsService.getPrizeByAgreementNumber(this.selectedDrawell,
+      this.forms.controls.yearPostroiki.value,
+      this.forms.controls.srachSumm.value,
+      this.forms.controls.square.value,
+      moment(this.forms.controls.dateFrom.value).format('L'),
+      moment(this.forms.controls.dateTo.value).format('L'));
+    this.calculated$.subscribe((data => this.prize = data),
+      (error) => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
+      () => (this.forms.controls.prize.setValue(this.prize),
+        this._snackBar.open('Расчет выполнен!!!', 'Выйти', { duration: 5000 }))
+    );
+
   }
 }

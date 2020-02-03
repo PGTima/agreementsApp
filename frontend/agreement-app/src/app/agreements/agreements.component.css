@@ -13,3 +13,9 @@ table.mat-table {
 th, td {
   padding: 100px 150px;
 }
+mat-progress-spinner{
+  margin: 0;
+  top: 50%;
+  left: 40%;
+  opacity: 0.5;
+}

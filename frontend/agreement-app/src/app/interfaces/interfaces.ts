@@ -8,75 +8,85 @@ export interface Client {
   clientPassportNumber: String;
 }
 export interface Adress {
-  adress_id: number;
-  state: {
-    state_id: number;
-    state_name: String;
+  id?: number;
+  stateA?: {
+    id?: number;
+    state_name?: String;
   };
-  dwelling: {
-    id: number;
-    apartment: number;
-    home: number;
-    room: number;
-    date_dwelling: String;
-    square_dwelling: number;
+  dwellingA?: {
+    id?: number;
+    apartment?: number;
+    home?: number;
+    room?: number;
+    date_dwelling?: String;
+    square_dwelling?: number;
   };
-  indexA: String;
-  edge: String;
-  district: String;
-  punkt: String;
-  korpus: String;
-  buld: String;
+  indexA?: String;
+  edge?: String;
+  district?: String;
+  punkt?: String;
+  korpus?: String;
+  buld?: String;
+  street?: String;
+}
+export interface Dwelling
+{
+    id?: number;
+    apartment?: number;
+    home?: number;
+    room?: number;
+    dateDrawelling?: String;
+    squareDrawelling?: number;
 }
 export interface Agreements {
-  id: number;
-  clientId: {
+  id?: number;
+  clientId?: {
     id?: number;
-    name: String;
-    surname: String;
-    patronymic: String;
-    dateBorn: String;
-    clientPassportSeries: String;
-    clientPassportNumber: String;
+    name?: String;
+    surname?: String;
+    patronymic?: String;
+    dateBorn?: String;
+    clientPassportSeries?: String;
+    clientPassportNumber?: String;
   };
-  adressId: {
-    id: number;
-    stateA: {
-      id: number;
-      stateName: String;
+  adressId?: {
+    id?: number;
+    stateA?: {
+      id?: number;
+      stateName?: String;
     };
-    dwellingA: {
-      id: number;
-      apartment: String;
-      home: number;
-      room: String;
-      dateDrawelling: String;
-      squareDrawelling: String;
+    dwellingA?: {
+      id?: number;
+      apartment?: String;
+      home?: number;
+      room?: String;
+      dateDrawelling?: String;
+      squareDrawelling?: String;
     };
-    indexA: String;
-    edge: String;
-    district: String;
-    punkt: String;
-    korpus: String;
-    buld: String;
-    street: String;
+    indexA?: String;
+    edge?: String;
+    district?: String;
+    punkt?: String;
+    korpus?: String;
+    buld?: String;
+    street?: String;
   };
-  agreementNumber: String;
-  comment: String;
-  seriesNomer: String;
-  dateComplet: String;
-  prize: String;
-  dateFrom: String;
-  dateTo: String;
-  dateRasheta: String;
-  srachSumm: String;
+  agreementNumber?: String;
+  comment?: String;
+  seriesNomer?: String;
+  dateComplet?: String;
+  prize?: String;
+  dateFrom?: String;
+  dateTo?: String;
+  dateRasheta?: String;
+  srachSumm?: String;
 }
 export interface State {
-  id: number;
+  id?: number;
   stateName: String;
 }
 export interface TypeDrawelling {
-  id: number;
+  id?: number;
   name: String;
 }
 

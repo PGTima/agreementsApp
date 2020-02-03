@@ -1,8 +1,7 @@
 <div class="firstForma">
   <h1>Расчет</h1>
     <form class = "agreements-form"
-          [formGroup]="forms"
-          (ngSubmit)="onSubmit()">
+          [formGroup]="forms">
   <div class="first-container">
     <div class ="firstColumn">
       <p>
@@ -24,8 +23,8 @@
       <p>
          <mat-form-field>
            <mat-label>Тип недвижимости</mat-label>
-             <mat-select>
-               <mat-option *ngFor="let draw of typeDrawelling" [value]="draw.id">
+             <mat-select [(value)]="selectedDrawell">
+               <mat-option *ngFor="let draw of typeDrawelling" [value]="draw.name">
                  {{draw.name}}
                </mat-option>
              </mat-select>
@@ -128,7 +127,7 @@
       </mat-form-field>
     </div>
   </div>
-  <button mat-raised-button class="rashetButton" color="primary"> Рассчитать </button>
+  <button type="button" mat-raised-button class="rashetButton" color="primary" (click) ="calculate()"> Расчитать </button>
   <div class="firstRow">
     <mat-form-field>
       <input matInput
@@ -201,7 +200,7 @@
   </div>
 <h1>Страхователь</h1>
 <div class="threeRow">
-    <button mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
+    <button type="button" mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
     <mat-form-field class ="nameSurnamePatronymic">
       <input matInput
              placeholder="Введите ФИО"
@@ -218,7 +217,7 @@
               </mat-error>
             </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="openDialog()" class="changeClient"> Изменить </button>
+    <button type="button" mat-raised-button color="primary" (click)="openDialog()" class="changeClient"> Изменить </button>
 </div>
 <div class="fourRow">
   <mat-form-field>

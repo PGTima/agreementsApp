@@ -9,8 +9,6 @@ public class Dwelling {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-
     @Column(name = "apartment")
     private Integer apartment;
     @Column(name = "home")
@@ -40,9 +38,6 @@ public class Dwelling {
     }
 
     public void setId(Long id) {
-        if (id==null){
-            throw new IllegalArgumentException("Переданный id не может быть пустым!");
-        }
         this.id = id;
     }
 

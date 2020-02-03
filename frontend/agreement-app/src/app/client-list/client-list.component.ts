@@ -16,7 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./client-list.component.css']
 })
 export class ClientListComponent implements OnInit {
-  clients$: Observable<Client[]>;
+  clients$: Observable<any>;
   clients: Client[];
   aSub: Subscription;
   clientR: Client;
@@ -28,6 +28,7 @@ export class ClientListComponent implements OnInit {
   patronymic: string;
   favoriteSeason: string;
   serialJson;
+  snipValue = false;
   displayedColumns: string[] = ['fio', 'dateBorn', 'passport', 'client_id'];
   constructor(public dialog: MatDialog,
     private matDialogRef: MatDialogRef<ClientListComponent>,
@@ -62,8 +63,9 @@ export class ClientListComponent implements OnInit {
     userSurname: string,
     userPatronymic: string) {
     this.clients$ = this.clientService.findClient(username, userSurname, userPatronymic);
-    this.clients$.subscribe((data =>
-      this.clients = data),
+    this.clients$.subscribe(data =>
+      this.clients = data
+      ,
       error => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
       () => {
         this.dataSource = new MatTableDataSource<Client>(this.clients);
