@@ -24,7 +24,7 @@ public class State {
     }
 
     public void setId(Long id) {
-        if (id==null){
+        if (id == null){
             throw new IllegalArgumentException("Переданный id не может быть пустым!");
         }
         this.id = id;

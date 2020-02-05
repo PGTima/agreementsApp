@@ -148,6 +148,7 @@ public class Agreement{
     }
 
     public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
     }
 
     public Date getDateTo() {

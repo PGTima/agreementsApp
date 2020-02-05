@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './client-edit.component.html',
   styleUrls: ['./client-edit.component.css']
 })
+
 export class ClientEditComponent implements OnInit {
   client: Client;
   client$: Observable<Client>;
@@ -19,7 +20,9 @@ export class ClientEditComponent implements OnInit {
   constructor(private matDialogRef: MatDialogRef<ClientEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private clientService: ClientService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar) { 
+      this.client = data;
+    }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -35,7 +38,7 @@ export class ClientEditComponent implements OnInit {
       patronymic: new FormControl(this.data.patronymic, [
         Validators.required
       ]),
-      dateBorn: new FormControl(this.data.dateBorn, [
+      dateBorn: new FormControl(new Date(this.data.dateBorn), [
         Validators.required
       ]),
       clientPassportSeries: new FormControl(this.data.clientPassportSeries, [
@@ -49,7 +52,7 @@ export class ClientEditComponent implements OnInit {
     });
   }
   public close() {
-    this.matDialogRef.close();
+    this.matDialogRef.close(this.client);
   }
   public onSubmit() {
     this.form.disable();
@@ -59,7 +62,7 @@ export class ClientEditComponent implements OnInit {
       error => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
       () => {
         this._snackBar.open('Клиент успешно изменен', 'Выйти', { duration: 5000 }),
-          this.matDialogRef.close();
+        this.matDialogRef.close(this.client);
       }
     );
     this.matDialogRef.close();

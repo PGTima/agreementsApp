@@ -10,4 +10,6 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<Client, Long> {
    Client findById(long id);
    List<Client> findByNameAndSurnameAndPatronymic(String name,String surname,String patronymic);
+   List<Client> findByClientPassportSeriesAndClientPassportNumber(String clientPassportSeries,
+                                                                  String clientPassportNumber);
 }

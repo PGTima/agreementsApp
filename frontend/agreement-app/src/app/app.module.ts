@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatGridListModule} from '@angular/material/grid-list'
 
 @NgModule({
   declarations: [
@@ -58,7 +58,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppRoutingModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
   ],

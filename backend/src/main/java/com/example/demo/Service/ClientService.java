@@ -10,5 +10,7 @@ public interface ClientService {
     List<Client> getAll();
     Client findById(long id);
     List<Client> findByNameAndSurnameAndPatronymic(String name,String surname,String patronymic);
+    List<Client> findByClientPassportSeriesAndClientPassportNumber(String clientPassportSeries,
+                                                                   String clientPassportNumber);
     Client editClient(Client client);
 }

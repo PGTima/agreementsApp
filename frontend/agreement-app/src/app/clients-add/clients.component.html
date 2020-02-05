@@ -1,8 +1,9 @@
-<div class ="createClient">
-<div class= "firstRow">
 <form class="example-form"
         [formGroup]="form"
         (ngSubmit)="onSubmit()">
+<mat-card>
+<mat-card-title>Создание страхователя</mat-card-title>
+<mat-card-content>
 <mat-form-field class="example-full-width">
     <input matInput 
     placeholder="Фамилия" 
@@ -47,7 +48,7 @@
       </mat-error>
     </mat-error>   
   </mat-form-field>
-
+<p>
     <mat-form-field>
       <input matInput 
       [matDatepicker]="dateBorn"
@@ -100,15 +101,17 @@
       </mat-error>
       <mat-error *ngIf="form.get('clientPassportNumber').errors['maxlength'] && form.get('clientPassportNumber').errors['maxlength']['requiredLength']
       ||form.get('clientPassportNumber').errors['minlength'] && form.get('clientPassportNumber').errors['minlength']['requiredLength'] "
-      >
-          Номер паспорта состоит из 6 символов
+      > Номер паспорта состоит из 6 символов
       </mat-error>
     </mat-error>   
   </mat-form-field>
-  </form>
-</div>
-<div class = "secondRow">
+</p>
+</mat-card-content>  
+  <mat-card-actions>
    <button mat-raised-button  color="primary" (click)="onSubmit()" [disabled]="form.invalid || form.disabled">Сохранить </button>
-   <button mat-raised-button  color="primary" (click)="close()">Закрыть </button>
-</div>
-</div>
+   <button mat-raised-button  color="primary" type="button" (click)="close()">Закрыть </button> 
+  </mat-card-actions>
+</mat-card> 
+  </form>
+
+   

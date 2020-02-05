@@ -13,6 +13,7 @@ import { Params, Router } from '@angular/router';
   styleUrls: ['./agreements.component.css']
 })
 export class AgreementsComponent implements OnInit, OnDestroy {
+
   agreements$: Observable<Agreements[]>;
   agreement: Agreements[];
   aSub: Subscription;
@@ -26,7 +27,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   ) { }
   dataSource;
   selection;
-  favoriteSeason: string;
+  AgreementId: string;
 
   ngOnInit() {
     this.snipValue = true;
@@ -47,7 +48,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   checkRadio(agr: string) {
     // разблокируем кнопку
     this.flagDisabled = false;
-    this.favoriteSeason = agr;
+    this.AgreementId = agr;
   }
   // создать договор
   createAgreement() {
@@ -58,7 +59,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/createAgreeement'],
       {
         queryParams: {
-          agreementId: this.favoriteSeason
+          agreementId: this.AgreementId
         }
       }
     );

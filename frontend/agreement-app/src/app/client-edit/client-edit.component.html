@@ -1,9 +1,10 @@
 
-<div class="editClient">
-<div class ="firstRow">
 <form class="example-form"
         [formGroup]="form"
         (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title> Изменить страхователя</mat-card-title>
+    <mat-card-content>     
   <mat-form-field>
     <input 
     matInput placeholder="Фамилия"
@@ -48,24 +49,22 @@
       </mat-error>
     </mat-error>
   </mat-form-field>
+  <p>
   <mat-form-field>
     <input matInput 
-    [matDatepicker]="dateBornx" 
+    [matDatepicker]="date_Born"
     placeholder="Дата рождения" 
-    [value]="data.dateBorn"
-    placeholder="Дата рождения"
-      formControlName="dateBorn"
-      id="dateBorn"
-      type="text"
-      [ngClass]="{'invalid': form.get('dateBorn').invalid && form.get('dateBorn').touched}"
+    formControlName="dateBorn"
+    id="dateBorn"
+    [ngClass]="{'invalid': form.get('dateBorn').invalid && form.get('dateBorn').touched}"
       >
       <mat-error *ngIf="form.get('dateBorn').invalid && form.get('dateBorn').touched">
         <mat-error *ngIf="form.get('dateBorn').errors['required']">
          Поле Дата рождения не заполнено!!!
         </mat-error>
-      </mat-error>  
-    <mat-datepicker-toggle matSuffix [for]="dateBornx"></mat-datepicker-toggle>
-    <mat-datepicker #dateBornx></mat-datepicker>
+      </mat-error> 
+      <mat-datepicker-toggle matSuffix [for]="date_Born"></mat-datepicker-toggle>
+      <mat-datepicker #date_Born></mat-datepicker>     
   </mat-form-field>
 
 
@@ -106,10 +105,12 @@
       </mat-error>
     </mat-error>   
   </mat-form-field>
-  </form>
-  </div>
-  <div class="secondRow">
+</p>
+</mat-card-content>
+<mat-card-actions>
   <button mat-raised-button  color="primary" class="saveButton" color="primary" (click)="onSubmit()"> Сохранить </button>
-  <button mat-raised-button  color="primary" class="closeButton" (click)="close()" color="primary"> Выйти </button>
-  </div>
-  </div>
+  <button mat-raised-button  color="primary" class="closeButton" (click)="close()" type="button" color="primary"> Выйти </button>
+</mat-card-actions>
+</mat-card>
+</form>
+

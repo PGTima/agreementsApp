@@ -19,16 +19,19 @@ import { catchError, map, tap } from 'rxjs/operators';
   styleUrls: ['./agr-edit.component.css']
 })
 export class AgrEditComponent implements OnInit, OnDestroy {
-  agreement_id: Number;
-  client: Client;
+
+  agreement_id: number = null;
+  client: Client = null;
   aSub: Subscription;
   fio: String = '';
-  dateBornx: Date;
+  dateBornx: String=null;
   series: String = '';
   nomer: String = '';
   forms: FormGroup;
   checkBool: Boolean;
   agreement: Agreements;
+  agreementNumbers: String = '';
+  checkChangeClient : boolean = true;
 
   agreements$: Observable<Agreements>;
 
@@ -38,7 +41,6 @@ export class AgrEditComponent implements OnInit, OnDestroy {
   state$: Observable<State[]>;
 
   typeDrawelling: TypeDrawelling[];
-  selectedState: number;
 
   DateFrom: Date = new Date();
   DateFromMax: Date;
@@ -58,7 +60,8 @@ export class AgrEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private agreementsService: AgreementsService,
     private adressService: AdressService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    ) {
   }
 
   ngOnInit() {
@@ -82,9 +85,10 @@ export class AgrEditComponent implements OnInit, OnDestroy {
         Validators.required
       ]),
       prize: new FormControl(null, [
-        Validators.required
+        Validators.required,
+        Validators.pattern('^[\\d]+(\\.[\\d][\\d])$')
       ]),
-      dateComplet: new FormControl(null, [
+      dateComplet: new FormControl(moment((new Date())).format('L'), [
         Validators.required
       ]),
       comment: new FormControl(null),
@@ -129,6 +133,7 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       street: new FormControl(null, [
         Validators.required
       ]),
+      state: new FormControl(null,[Validators.required]),
       korpus: new FormControl(null),
       distrikt: new FormControl(null),
       build: new FormControl(null),
@@ -174,9 +179,9 @@ export class AgrEditComponent implements OnInit, OnDestroy {
           // @ts-ignore
           this.forms.controls.yearPostroiki.setValue(moment(this.agreement.adressId.dwellingA.dateDrawelling).format('YYYY'));
           // tslint:disable-next-line:max-line-length
-          this.forms.controls.nameSurnamePatronymic.setValue(this.agreement.clientId.name + ' ' + this.agreement.clientId.surname + ' ' + this.agreement.clientId.patronymic);
+          this.forms.controls.nameSurnamePatronymic.setValue(this.agreement.clientId.surname + ' ' + this.agreement.clientId.name + ' ' + this.agreement.clientId.patronymic);
           // @ts-ignore
-          this.forms.controls.dateBorn.setValue((new Date(this.agreement.clientId.dateBorn)).toISOString());
+          this.forms.controls.dateBorn.setValue(moment(this.agreement.clientId.dateBorn).format('L'));
           this.forms.controls.clientPassportSeries.setValue(this.agreement.clientId.clientPassportSeries);
           this.forms.controls.clientPassportNumber.setValue(this.agreement.clientId.clientPassportNumber);
           this.forms.controls.indexA.setValue(this.agreement.adressId.indexA);
@@ -188,13 +193,12 @@ export class AgrEditComponent implements OnInit, OnDestroy {
           this.forms.controls.korpus.setValue(this.agreement.adressId.korpus);
           this.forms.controls.distrikt.setValue(this.agreement.adressId.district);
           this.forms.controls.build.setValue(this.agreement.adressId.buld);
-          this.forms.controls.kvartira.setValue(this.agreement.adressId.dwellingA.room);
+          this.forms.controls.kvartira.setValue(this.agreement.adressId.dwellingA.apartment);
         }
       );
     } else {
       this.DateTo = new Date(this.DateTo.setDate(this.DateFrom.getDate() + 1));
       this.forms.controls.dateFrom.setValue(this.DateFrom.toISOString());
-      console.log(this.DateFrom.toISOString());
       this.forms.controls.dateTo.setValue(this.DateTo.toISOString());
       this.DateFromMax = this.DateTo;
       this.DateToMax.setFullYear((this.DateFromMax).getFullYear() + 1, (this.DateFromMax).getMonth(), (this.DateFromMax).getDate());
@@ -209,7 +213,7 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       () => {
         this.checkBool = false;
         if (this.agreement_id !== null && this.agreement_id !== undefined) {
-          this.selectedState = this.agreement.adressId.stateA.id;
+          this.forms.controls.state.setValue(this.agreement.adressId.stateA.id);
         }
 
       }
@@ -223,31 +227,56 @@ export class AgrEditComponent implements OnInit, OnDestroy {
     this.forms.get('dateTo').valueChanges.subscribe(c => {
       this.DateFromMax = c;
     });
+    this.forms.get('nameSurnamePatronymic').valueChanges.subscribe(c=>{
+         if (c!==null){
+           this.checkChangeClient = false;
+         }
+         else{
+          this.checkChangeClient = true;
+         }
+    });
   }
 
   public openDialog() {
-    if (this.client != null || this.client.clientPassportSeries !== undefined) {
-      const dialogRef = this.dialog.open(ClientEditComponent, { data: this.client });
+    if (this.agreement !== undefined ){
+      this.client = {
+      id: this.agreement.clientId.id,
+      name: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[0],
+      surname: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[1],
+      patronymic: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[2],
+      dateBorn:  (new Date(this.forms.controls.dateBorn.value)).toISOString(),
+      clientPassportSeries: this.forms.controls.clientPassportSeries.value,
+      clientPassportNumber: this.forms.controls.clientPassportNumber.value
+       };
+      }
+      const dialogRef = this.dialog.open(ClientEditComponent, {data: this.client});
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
+        if (result!==undefined){
+          this.client = result;
+          this.fio = this.client.surname + ' ' + this.client.name + ' ' + this.client.patronymic;
+          this.dateBornx = moment( new Date(Date.parse(this.client.dateBorn.toString()))).format('L');
+          this.series = this.client.clientPassportSeries;
+          this.nomer = this.client.clientPassportNumber;
+          this.forms.controls.nameSurnamePatronymic.setValue(this.fio);
+          this.forms.controls.dateBorn.setValue(this.dateBornx);
+          this.forms.controls.clientPassportSeries.setValue(this.series);
+          this.forms.controls.clientPassportNumber.setValue(this.nomer);};
       });
-    }
   }
 
   public openDialog1() {
     const dialogRef = this.dialog.open(ClientListComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if (localStorage.getItem('client') != null) {
-        this.client = JSON.parse(localStorage.getItem('client'));
+      if(result!==undefined){
+        this.client = result;
         this.fio = this.client.surname + ' ' + this.client.name + ' ' + this.client.patronymic;
-        this.dateBornx = new Date(Date.parse(this.client.dateBorn.toString()));
+        this.dateBornx = moment( new Date(Date.parse(this.client.dateBorn.toString()))).format('L');
         this.series = this.client.clientPassportSeries;
         this.nomer = this.client.clientPassportNumber;
         this.forms.controls.nameSurnamePatronymic.setValue(this.fio);
         this.forms.controls.dateBorn.setValue(this.dateBornx);
         this.forms.controls.clientPassportSeries.setValue(this.series);
-        this.forms.controls.clientPassportNumber.setValue(this.nomer);
-      }
+        this.forms.controls.clientPassportNumber.setValue(this.nomer);};
     });
   }
 
@@ -263,7 +292,7 @@ export class AgrEditComponent implements OnInit, OnDestroy {
     if (this.forms.controls.dateRasheta.value!== null || this.forms.controls.dateRasheta.value!==undefined) {
       this.forms.controls.dateRasheta.setValue((new Date(this.forms.controls.dateRasheta.value).toISOString()));
     }else{
-      this.forms.controls.dateRasheta.setValue(new Date().toISOString()));
+      this.forms.controls.dateRasheta.setValue(new Date().toISOString());
     }; 
     if (this.forms.controls.dateComplet.value!==null || this.forms.controls.dateComplet.value!==undefined){
       this.forms.controls.dateComplet.setValue((new Date(this.forms.controls.dateComplet.value)).toISOString());
@@ -271,18 +300,19 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       this.forms.controls.dateComplet.setValue((new Date().toISOString()));
     }; 
     this.agreement = {
+      id: this.agreement_id,
       clientId: {
         id: this.client.id,
         name: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[0],
         surname: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[1],
         patronymic: (this.forms.controls.nameSurnamePatronymic.value).split(' ')[2],
-        dateBorn: this.forms.controls.dateBorn.value,
+        dateBorn:  (new Date(this.forms.controls.dateBorn.value)).toISOString(),
         clientPassportSeries: this.forms.controls.clientPassportSeries.value,
         clientPassportNumber: this.forms.controls.clientPassportNumber.value
       },
       adressId: {
         stateA: {
-          id: this.selectedState
+          id: this.forms.controls.state.value
         },
         dwellingA: {
           apartment: '',
@@ -312,7 +342,7 @@ export class AgrEditComponent implements OnInit, OnDestroy {
    
     // Заполним объект drawelling для создания объекта
     this.drawelling = {
-      apartment: null,
+      apartment:  this.forms.controls.kvartira.value,
       home: this.forms.controls.home.value,
       room: null,
       dateDrawelling: (new Date(this.forms.controls.yearPostroiki.value)).toISOString(),
@@ -325,7 +355,7 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       this.drawelling = data;
       this.adress = {
         stateA: {
-          id: this.selectedState
+          id: this.forms.controls.state.value
         },
         dwellingA: {
           id: this.drawelling.id
@@ -350,6 +380,7 @@ export class AgrEditComponent implements OnInit, OnDestroy {
             this.agreements$.subscribe((vald => this.agreement = vald),
              () => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
              () => this._snackBar.open('Договор успешно добавлен!!!', 'Выйти', { duration: 5000 }));
+                   this.router.navigate(['/agreements']);
           }
         }
         ),
@@ -370,13 +401,19 @@ export class AgrEditComponent implements OnInit, OnDestroy {
   }
   uniqAgrNumberValidator(ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    if (this.agreement === undefined){
+      this.agreementNumbers = '';
+    }else{
+      this.agreementNumbers =this.agreement.agreementNumber;
+    }
     return this.agreementsService.getfindByAgreementNumber(ctrl.value).pipe(
-      map(isTaken => (isTaken && this.agreement.agreementNumber !== ctrl.value ? { uniqueAlterEgo: true } : null)),
+      map(isTaken => (isTaken && this.agreementNumbers !== ctrl.value ? { uniqueAlterEgo: true } : null)),
       catchError(() => null)
     );
   }
   // расчитать основные показатели по договору
   calculate() {
+    this.forms.controls.dateRasheta.setValue(moment((new Date())).format('L'));
     this.calculated$ = this.agreementsService.getPrizeByAgreementNumber(this.selectedDrawell,
       this.forms.controls.yearPostroiki.value,
       this.forms.controls.srachSumm.value,
@@ -385,9 +422,8 @@ export class AgrEditComponent implements OnInit, OnDestroy {
       moment(this.forms.controls.dateTo.value).format('L'));
     this.calculated$.subscribe((data => this.prize = data),
       (error) => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
-      () => (this.forms.controls.prize.setValue(this.prize),
+      () => (this.prize =this.prize.toFixed(2), this.forms.controls.prize.setValue(this.prize),
         this._snackBar.open('Расчет выполнен!!!', 'Выйти', { duration: 5000 }))
     );
-
   }
 }

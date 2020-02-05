@@ -1,9 +1,4 @@
-.editClient {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border: 2 px solid black;
-  margin: 10px;
+.mat-card-actions .mat-button, .mat-card-actions .mat-raised-button {
+  position: relative;
+  left: 30%;
 }

@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
+
 export class ClientsComponent implements OnInit, OnDestroy {
   client: Client;
   client$: Observable<Client>;
@@ -54,10 +55,9 @@ export class ClientsComponent implements OnInit, OnDestroy {
       error => this._snackBar.open('Ошибка в получении данных с сервера', 'Выйти', { duration: 5000 }),
       () => {
         this._snackBar.open('Клиент добавлен успешно', 'Выйти', { duration: 5000 }),
-          this.matDialogRef.close();
+          this.matDialogRef.close(this.client);
       }
     );
-    this.matDialogRef.close();
   }
   public close() {
     this.matDialogRef.close();

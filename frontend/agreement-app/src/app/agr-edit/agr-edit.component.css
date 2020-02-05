@@ -1,98 +1,58 @@
-.first-container {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-around;
-  width: 80%;
-  border: 2 px solid black;
+.calculated-card{
+  max-width: 50%;
+  left: 25%;
+  top: 10px;
 }
-.firstColumn{
-   padding: 2px;
+.params-card{
+  max-width: 50%;
+  left: 25%;
+  top: 10px;
 }
-.secondColumn{
-  padding: 2px;
+.client-card{
+  max-width: 50%;
+  left: 25%;
+  top: 10px;
 }
-.firstForma div{
-  border: 8 px solid black;
-
+.adres-card{
+  max-width: 50%;
+  left: 25%;
+  top: 10px;
 }
-.firstRow{
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-around;
-  width: 55%;
+.comment-card{
+  max-width: 50%;
+  left: 25%;
+  top: 10px;
 }
-.rashetButton{
-  left:50%;
-}
-.secondRow{
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-around;
-  width: 56%;
-}
-.threeRow{
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-around;
+textarea{
   width: 100%;
-
 }
-.fio{
-  width: 500px;
+.comment-text{
+  width: 100%;
 }
-.fourRow{
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-around;
-  width: 80%;
+.mat-card-actions{
+  position: relative;
+  left: 40%;
 }
-.selectClient{
-  height:36px;
+.mat-card-title{
+  margin-bottom: 1px;
 }
-.changeClient{
-  height:36px;
+.mat-card{
+  padding: 15px;
 }
-.fiveRow{
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-between;
-  margin-left :100px;
+.mat-form-field{
+  padding-left:5px; 
 }
-.textComment{
-  margin: 5;
-  width: 500px;
-  height: 100px;
-}
-.sixRow{
-   margin-left: 100px;
-
-}
-.sevenRow{
-   align-items: center;
-   margin-left: 50%;
-}
-.saveAgr{
-  margin-right: 5px;
-}
-.adress-full-width{
-  margin:10px;
+.mat-list-item{
+  margin-top: 10px;
 }
 .loader{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.7;
+  position: absolute;
+  left: 45%;
+  top:40%;
 }
-h1{
-  margin-left: 70px;
+.cont-card{
+margin-bottom: 0px;
 }
 .nameSurnamePatronymic{
-  width: 400px;
+  width: 380px;
 }

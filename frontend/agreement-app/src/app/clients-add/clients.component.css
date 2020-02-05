@@ -1,11 +1,4 @@
-.createClient{
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-between;
-  margin: 5px;
-}
-.secondRow{
-  align-items: center;
-  margin:5px;
+.mat-card-actions .mat-button, .mat-card-actions .mat-raised-button {
+  position: relative;
+  left: 30%;
 }

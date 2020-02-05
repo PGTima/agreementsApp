@@ -29,6 +29,11 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findByNameAndSurnameAndPatronymic(name, surname, patronymic);
     }
     @Override
+    public List<Client> findByClientPassportSeriesAndClientPassportNumber(String clientPassportSeries,
+                                                                          String clientPassportNumber){
+        return clientRepository.findByClientPassportSeriesAndClientPassportNumber(clientPassportSeries,clientPassportNumber);
+    }
+    @Override
     public Client editClient(Client client){
         return clientRepository.saveAndFlush(client);
     }

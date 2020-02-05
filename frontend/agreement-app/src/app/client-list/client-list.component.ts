@@ -16,6 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./client-list.component.css']
 })
 export class ClientListComponent implements OnInit {
+
   clients$: Observable<any>;
   clients: Client[];
   aSub: Subscription;
@@ -30,12 +31,13 @@ export class ClientListComponent implements OnInit {
   serialJson;
   snipValue = false;
   displayedColumns: string[] = ['fio', 'dateBorn', 'passport', 'client_id'];
+
   constructor(public dialog: MatDialog,
     private matDialogRef: MatDialogRef<ClientListComponent>,
-
     private router: Router,
     private clientService: ClientService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar) {
+    }
 
   ngOnInit() {
     this.clients$ = this.clientService.getAllClients();
@@ -50,14 +52,20 @@ export class ClientListComponent implements OnInit {
 
   }
   public close() {
-    this.matDialogRef.close();
+    this.matDialogRef.close(this.clientR);
   }
   public addUser() {
-    this.dialog.open(ClientsComponent);
-  }
+    const dialogRef = this.dialog.open(ClientsComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result!== undefined){
+       this.clients.push(result);
+       this.dataSource = new MatTableDataSource<Client>(this.clients);
+       this.selection = new SelectionModel<Client>(true, []); 
+      }
+     });
+    }
   public changeUser() {
-
-    this.matDialogRef.close();
+    this.matDialogRef.close(this.clientR);
   }
   public findUser(username: string,
     userSurname: string,
@@ -75,9 +83,6 @@ export class ClientListComponent implements OnInit {
   }
   checkRadio(client: any) {
     this.flagDisabled = false;
-    console.log(client);
     this.clientR = client;
-    this.serialJson = JSON.stringify(this.clientR);
-    localStorage.setItem('client', this.serialJson);
   }
 }

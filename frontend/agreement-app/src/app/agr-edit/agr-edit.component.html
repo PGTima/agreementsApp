@@ -1,10 +1,13 @@
-<div class="firstForma">
-  <h1>Расчет</h1>
+
     <form class = "agreements-form"
           [formGroup]="forms">
-  <div class="first-container">
-    <div class ="firstColumn">
-      <p>
+        <mat-card class="calculated-card">
+          <mat-card-title>Расчет</mat-card-title>
+          <mat-card-content class="cont-card">
+            <mat-grid-list cols="2" rowHeight="270px" >
+              <mat-grid-tile>
+            <mat-list dense>
+              <mat-list-item>
          <mat-form-field>
            <input matInput
            placeholder="Страховая сумма"
@@ -19,8 +22,8 @@
               </mat-error>
             </mat-error>
          </mat-form-field>
-      </p>
-      <p>
+         </mat-list-item>
+         <mat-list-item>
          <mat-form-field>
            <mat-label>Тип недвижимости</mat-label>
              <mat-select [(value)]="selectedDrawell">
@@ -29,8 +32,8 @@
                </mat-option>
              </mat-select>
           </mat-form-field>
-      </p>
-      <p>
+          </mat-list-item>
+          <mat-list-item>
           <mat-form-field>
             <input matInput
             placeholder="Год постройки"
@@ -51,8 +54,8 @@
              </mat-error>
             </mat-error>
          </mat-form-field>
-      </p>
-       <p>
+         </mat-list-item>
+         <mat-list-item>
           <mat-form-field>
             <input
             matInput placeholder="Площадь, кв. м"
@@ -70,10 +73,29 @@
              </mat-error>
             </mat-error>
           </mat-form-field>
-      </p>
-    </div>
-    <div class = "secondColumn">
-       Срок действия с
+          </mat-list-item>
+          <mat-list-item>
+          <mat-form-field>
+            <input matInput
+            placeholder="Дата расчета"
+            formControlName="dateRasheta"
+                   readonly="true"
+              id="dateRasheta"
+              type="text"
+              [ngClass]="{'invalid': forms.get('dateRasheta').invalid && forms.get('dateRasheta').touched}"
+                 >
+                 <mat-error *ngIf="forms.get('dateRasheta').invalid && forms.get('dateRasheta').touched">
+                    <mat-error *ngIf="forms.get('dateRasheta').errors['required']">
+                        Поле дата расчета не заполнено!!!
+                    </mat-error>
+                  </mat-error>
+          </mat-form-field>
+        </mat-list-item>
+        </mat-list>
+      </mat-grid-tile>  
+      <mat-grid-tile>
+      <mat-list dense>
+      <mat-list-item>          
       <mat-form-field>
         <input
         matInput [matDatepicker]="date_From"
@@ -97,9 +119,10 @@
              </mat-error>
             </mat-error>
         <mat-datepicker-toggle matSuffix [for]="date_From"></mat-datepicker-toggle>
-        <mat-datepicker #date_From></mat-datepicker>
-      </mat-form-field>
-      по
+        <mat-datepicker #date_From></mat-datepicker>    
+      </mat-form-field> 
+      </mat-list-item> 
+      <mat-list-item>
       <mat-form-field>
         <input matInput
         [matDatepicker]="dateTo"
@@ -125,26 +148,8 @@
         <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
         <mat-datepicker #dateTo></mat-datepicker>
       </mat-form-field>
-    </div>
-  </div>
-  <button type="button" mat-raised-button class="rashetButton" color="primary" (click) ="calculate()"> Расчитать </button>
-  <div class="firstRow">
-    <mat-form-field>
-      <input matInput
-      placeholder="Дата расчета"
-      formControlName="dateRasheta"
-             readonly="true"
-        id="dateRasheta"
-        type="text"
-        [ngClass]="{'invalid': forms.get('dateRasheta').invalid && forms.get('dateRasheta').touched}"
-           >
-           <mat-error *ngIf="forms.get('dateRasheta').invalid && forms.get('dateRasheta').touched">
-              <mat-error *ngIf="forms.get('dateRasheta').errors['required']">
-                  Поле дата расчета не заполнено!!!
-              </mat-error>
-            </mat-error>
-    </mat-form-field>
-
+      </mat-list-item> 
+    <mat-list-item> 
     <mat-form-field>
       <input matInput
              placeholder="Премия"
@@ -157,11 +162,27 @@
               <mat-error *ngIf="forms.get('prize').errors['required']">
                   Поле премия не заполнено!!!
               </mat-error>
+              <mat-error *ngIf="forms.get('square').errors.pattern">
+                Поле премия заполнено неверно!!!
             </mat-error>
+            </mat-error>
+              
     </mat-form-field>
-  </div>
+    </mat-list-item> 
+      <mat-list-item></mat-list-item>
+     </mat-list>
+    </mat-grid-tile>
+    </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="button" mat-raised-button class="rashetButton" color="primary" (click) ="calculate()"> Расчитать </button>
+    </mat-card-actions>
+  </mat-card>
 
-  <div class="secondRow">
+
+
+<mat-card class="params-card">
+<mat-card-content>
     <mat-form-field>
       <input matInput
              placeholder="№ договора"
@@ -197,10 +218,27 @@
               </mat-error>
             </mat-error>
     </mat-form-field>
-  </div>
-<h1>Страхователь</h1>
-<div class="threeRow">
-    <button type="button" mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
+  </mat-card-content>
+  </mat-card>
+<mat-card class="client-card">
+  <mat-card-title>Страхователь</mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput
+       placeholder="Дата рождения"
+       [value]="dateBornx"
+       readonly="true"
+       formControlName="dateBorn"
+       id="dateBorn"
+       type="text"
+       [ngClass]="{'invalid': forms.get('dateBorn').invalid && forms.get('dateBorn').touched}"
+            >
+            <mat-error *ngIf="forms.get('dateBorn').invalid && forms.get('dateBorn').touched">
+               <mat-error *ngIf="forms.get('dateBorn').errors['required']">
+                   Поле дата рождения не заполнено!!!
+               </mat-error>
+             </mat-error>
+   </mat-form-field>
     <mat-form-field class ="nameSurnamePatronymic">
       <input matInput
              placeholder="Введите ФИО"
@@ -217,28 +255,7 @@
               </mat-error>
             </mat-error>
     </mat-form-field>
-    <button type="button" mat-raised-button color="primary" (click)="openDialog()" class="changeClient"> Изменить </button>
-</div>
-<div class="fourRow">
-  <mat-form-field>
-     <input matInput
-      [matDatepicker]="dateBorn"
-      placeholder="Дата рождения"
-      [value]="dateBornx"
-      readonly="true"
-      formControlName="dateBorn"
-      id="dateBorn"
-      type="text"
-      [ngClass]="{'invalid': forms.get('dateBorn').invalid && forms.get('dateBorn').touched}"
-           >
-           <mat-error *ngIf="forms.get('dateBorn').invalid && forms.get('dateBorn').touched">
-              <mat-error *ngIf="forms.get('dateBorn').errors['required']">
-                  Поле дата рождения не заполнено!!!
-              </mat-error>
-            </mat-error>
-      <mat-datepicker-toggle matSuffix [for]="dateBorn"></mat-datepicker-toggle>
-      <mat-datepicker #dateBorn></mat-datepicker>
-  </mat-form-field>
+  
   <mat-form-field>
     <input matInput
            placeholder="Серия"
@@ -277,17 +294,32 @@
              </mat-error>
             </mat-error>
   </mat-form-field>
-  </div>
-<h1>Адрес недвижимости</h1>
-<div class ="fiveRow">
-<div class= "adressRow">
+</mat-card-content>
+<mat-card-actions>
+  <button type="button" mat-raised-button color="primary" (click)="openDialog1()" class="selectClient"> Выбрать </button>
+  <button type="button" mat-raised-button color="primary" (click)="openDialog()" class="changeClient" [disabled]="checkChangeClient"> Изменить </button>
+</mat-card-actions>
+</mat-card>
+
+<mat-card class ="adres-card">
+  <mat-card-title>Адрес недвижимости</mat-card-title>
+  <mat-card-content>
   <mat-form-field>
   <mat-label>Государство</mat-label>
-  <mat-select [(value)]="selectedState">
-    <mat-option *ngFor="let stat of states" [value]="stat.id">
+  <mat-select 
+  formControlName="state"
+  id="state"
+  [ngClass]="{'invalid': forms.get('state').invalid && forms.get('state').touched}"
+   >
+    <mat-option *ngFor="let stat of states" [value]="stat.id" >
       {{stat.stateName}}
     </mat-option>
   </mat-select>
+  <mat-error *ngIf="forms.get('state').invalid && forms.get('state').touched">
+    <mat-error *ngIf="forms.get('state').errors['required']">
+        Поле государство не заполнено!!!
+    </mat-error>
+  </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput
@@ -333,8 +365,6 @@
            type="text"
            >
   </mat-form-field>
-</div>
-<div class= "adressRowTwo">
 <mat-form-field>
     <input matInput
            placeholder="Населенный пункт"
@@ -387,26 +417,28 @@
               </mat-error>
             </mat-error>
 </mat-form-field>
-</div>
-</div>
-<h1>Комментарий</h1>
-<div class ="sixRow">
-<mat-form-field>
-    <input matInput
-          class="textComment"
-           placeholder="Комментарий к договору"
-           formControlName="comment"
-           id="comment"
-           type="text"
->
+</mat-card-content>
+</mat-card>
+<mat-card class="comment-card">
+  <mat-card-title>
+    Комментарий
+  </mat-card-title>
+  <mat-card-content>
+<mat-form-field class ="comment-text">
+  <textarea matInput 
+  class="textComment"
+  placeholder="Комментарий к договору"
+  formControlName="comment"
+  id="comment"
+  ></textarea>
 </mat-form-field>
-</div>
-<div class ="sevenRow">
+</mat-card-content>
+<mat-card-actions>
   <button mat-raised-button class="saveAgr" (click)="onSubmit()" color="primary" [disabled]="forms.invalid || forms.disabled"> Сохранить </button>
   <button mat-raised-button class="listAgr" color="primary" (click)="onListAgr()">К списку договоров </button>
-</div>
+</mat-card-actions>
+</mat-card>
 </form>
-</div>
 <mat-spinner *ngIf="checkBool == true"
              class="loader"
              color="primary">

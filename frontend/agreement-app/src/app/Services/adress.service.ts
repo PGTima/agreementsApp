@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 
 export class AdressService {
+
   private url = 'http://localhost:8080/allState';
   private urlTypeDrawelling = 'http://localhost:8080/allDrawelling';
   private urlAddDrawelling = 'http://localhost:8080/addDwelling';
@@ -15,17 +16,29 @@ export class AdressService {
 
   constructor(private http: HttpClient) {
   }
-
+ /**
+ * Получение списка государств
+ */
   getState(): Observable<State[]> {
     return this.http.get<State[]>(this.url);
   }
+  /**
+   * Получение списка жилища
+   */
   getDrawelling(): Observable<State[]> {
-    console.log(this.http.get<State[]>(this.url));
     return this.http.get<State[]>(this.url);
   }
+  /**
+   * Добавление жилища
+   * @param dwelling 
+   */
   addDrawelling(dwelling: Dwelling): Observable<any> {
     return this.http.post<any>(this.urlAddDrawelling, dwelling);
   }
+  /**
+   * Добавление адреса
+   * @param adress 
+   */
   addAdress(adress: Adress): Observable<any> {
     return this.http.post<any>(this.urlAddAdress, adress);
   }
